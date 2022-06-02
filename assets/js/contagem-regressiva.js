@@ -13,13 +13,13 @@ function comeca() {
     // const minutoMostrado = document.getElementById('f_minutos');
     // const segundoMostrado = document.getElementById('f_segundos');
 
-    const diaMostrado = document.getElementsByClassName('f_dias')[0];
-    const horaMostrado = document.getElementsByClassName('f_horas')[0];
-    const minutoMostrado = document.getElementsByClassName('f_minutos')[0];
-    const segundoMostrado = document.getElementsByClassName('f_segundos')[0];
+    const diaMostrado = document.getElementById('f_dias');
+    const horaMostrado = document.getElementById('f_horas');
+    const minutoMostrado = document.getElementById('f_minutos');
+    const segundoMostrado = document.getElementById('f_segundos');
 
     // const diaDado = document.getElementsByClassName('r-data'); //Input dado
-    const diaDado = document.getElementById('r-data-'); //Input dado
+    const diaDado = document.getElementById('r-data'); //Input dado
 
     const diaAgora = new Date(); //Data do click
     const dataRecebida = new Date(diaDado.value);
@@ -140,9 +140,6 @@ function comeca() {
 }, true)
 
 }
-
-
-
 
 
 //________________________________________________________Terminto da solução____________________________________________________
