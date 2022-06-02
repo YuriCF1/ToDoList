@@ -1,0 +1,129 @@
+/*________Cards no inicio________________________*/
+.cards_container {
+    display: flex;
+}
+
+.cards_centro {
+    width: calc(100vw - 15vh);
+    text-align: center;
+    font-size: 3rem;
+    background-color: rgb(188, 199, 223);
+}
+
+.cards_inicio {
+    text-align: center;
+    margin-top: calc(50vh - 7rem);
+
+}
+
+.cards_iniciosub {
+    font-size: 1.2rem;
+
+}
+
+/*__________________Cards Containers________________*/
+
+.cards_container {
+    position: relative;
+
+
+}
+
+.card_linhas {
+    position: absolute;
+    text-align: center;
+    top: -80vh;
+    left: 22.5vh;
+    height: auto;
+    width: 85vw;
+    background-color: rgb(124, 152, 243);
+    display: flex;
+    margin: 1rem auto;
+
+}
+
+/*__________________Cards Objetos________________*/
+
+.card_ad {
+    border-radius: 30px;
+    box-sizing: border-box;
+    box-sizing: border-box;
+    background-color: rgba(66, 225, 17, 0.59);
+    margin: 1rem;
+    height: 35vh;
+    padding: 1rem;
+    width: calc(85vw / 5 - (2rem));
+    display: flex;
+    flex-direction: column;
+
+}
+
+.card_ad__titulo {
+    border-style: none;
+    background: none;
+    font-size: 1.5rem;
+    height: 1.5rem;
+    width: 15rem;
+
+}
+
+.card_ad__titulo:focus, .card_ad__tempo:focus {
+    background: #FDFDFD;
+    outline: none;
+}
+
+.card_ad > label {
+    margin: 1rem 0 0.3rem 0;
+    text-align: left;
+
+}
+
+.card_ad > textarea {
+    margin-top: 0.5rem;
+    border-style: none;
+    background: none;
+    font-size: 1.1rem;
+    background-color: rgba(22, 206, 243, 0.887);
+    height: 4rem;
+    max-height: 4rem;
+    width: 16rem;
+    max-width: 16rem;
+    
+}
+
+.card_ad__inputs {
+    margin-top: 0.5rem;
+    border-style: none;
+    background: none;
+    font-size: 1.1rem;
+    height: 1.1rem;
+    width: 15rem;
+    background-color: rgba(22, 206, 243, 0.887)
+
+}
+
+.card_ad__tempo {
+    align-self: center;
+    font-size: 1.05rem;
+    background: none;
+    border-style: none;
+    margin-top: 0.5rem;
+    width: 16rem;
+
+}
+
+.botao {
+    margin-top: 1rem;
+    font-size: 1.1rem;
+    border: 1px solid black;
+    background-color: orange;
+    border-radius: 5px;
+    cursor: pointer;
+
+}
+
+.contagemRegressiva {
+    margin-top: 1rem;
+    color: rgb(62, 62, 62);
+
+}

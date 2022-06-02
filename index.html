@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quanto tempo falta?</title>
+
+    <link rel="icon" type="imagem/jpeg" href="assets/img/relogio.png" />
+
+    <!--Fontes-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300&family=Dancing+Script&display=swap"
+        rel="stylesheet">
+
+    <!-- 
+        font-family: 'Comfortaa', cursive;
+        font-family: 'Dancing Script', cursive; 
+        -->
+
+    <!--CSS-->
+    <link rel="stylesheet" href="assets/css/reset.css">
+    <link rel="stylesheet" href="assets/css/cabecalho.css">
+    <link rel="stylesheet" href="assets/css/barra-lateral.css">
+    <link rel="stylesheet" href="assets/css/cabecalho_slider.css">
+    <link rel="stylesheet" href="assets/css/cards.css">
+
+    <script src="https://kit.fontawesome.com/9eaf1d90d0.js" crossorigin="anonymous"></script>
+    
+
+</head>
+
+<body onload="mostraTempo(); comeca()">
+    <header>
+        <div class="cabecalho_container">
+            <h1>
+                <img class="logo" src="assets/img/Logo.png" alt="Logo representando tarefas">
+            </h1>
+            <h2>Suas metas</h2>
+
+
+            <div class="cabecalho_slider">
+                <div class="cabecalho_slider__conteudo">
+                    <div class="slider">
+                        <div class="slider_text1">Nunca desista, pois...</div>
+                        <div class="slider_text2">Vá em frente</div>
+                        <div class="slider_text3">Você consegue!</div>
+                    </div>
+                </div>
+            </div>
+
+            <section>
+                <div class="cabecalho_hora">
+                    <p>Hora e data atual</p>
+                    <div>
+                        <time id="hora"></time>
+                        <time id="min"></time>
+                        <time id="seg"></time>
+
+                    </div>
+
+                    <div>
+                        <time id="dia"></time>
+                        <time id="mes"></time>
+                        <time id="ano"></time>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </header>
+
+    <main>
+        <section class="cards_container">
+            <div class="lateral">
+                <p class="lateral_frase">Suas metas</p>
+                <nav>
+                    <ul class="lateral_lista">
+                        <li>Trabalho <i id="maisTrabalho" class="fa-solid fa-circle-plus"></i></li>
+                        <li>Estudo <i id="maisEstudo" class="fa-solid fa-circle-plus"></i></li>
+                    </ul>
+                </nav>
+            </div>
+            <!--_______________________________INICIO____________________________________________-->
+            <div id="cards_centro" class="cards_centro">
+                <div>
+                    <p class="cards_inicio">Adicione suas metas</p>
+                    <p class="cards_iniciosub">Clicando na lateral esquerda</p>
+                </div>
+            </div>
+        </section>
+
+        <!--_______________________________CardTrabalho____________________________________________-->
+        <section class="cards_container">
+            <div id="card_linhas" class="card_linhas">
+                <form class="card_ad">
+                    <input id='card_ad__titulo' class='card_ad__titulo' type='text' placeholder='Meta'>
+                    <label for='meta'>O que você vai fazer?</label>
+                    <textarea class='card_ad__inputs' id='meta' type='text' rows='4' cols='10'
+                        placeholder='Irei...'></textarea>
+                    <label for='tempo'>Qual o prazo?</label>
+
+                    <!-- <input class='card_ad__tempo' type='datetime-local' name='' id='r-data'> -->
+                    <input class='card_ad__tempo' type='datetime-local' name='' id='r-data'>
+                    <input class="botao" type="submit" value="Começar!" id="botao" name="botao">
+
+                    <div>
+                        <!-- <time id="f_dias"></time>
+                        <time id="f_horas"></time>
+                        <time id="f_minutos"></time>
+                        <time id="f_segundos"></time>-->
+                        <time class="f_dias"></time>
+                        <time class="f_horas"></time>
+                        <time class="f_minutos"></time>
+                        <time class="f_segundos"></time>                    
+
+                    </div>   
+
+                </form> 
+            </div>
+        </section>
+    </main>
+    <script src="assets/js/tempo.js"></script>
+    <script src="assets/js/cards.js"></script>
+    <script src="assets/js/contagem-regressiva.js"></script>
+</body>
+
+</html>

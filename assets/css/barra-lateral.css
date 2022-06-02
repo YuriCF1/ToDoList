@@ -1,0 +1,26 @@
+.lateral {
+    background-color: #1E6091;
+    box-sizing: border-box;
+    width: 15vh;
+    height: 85vh;
+    padding: 1rem;
+    text-align: center;
+    
+
+}
+
+.lateral_frase {
+    margin-top: 3rem;
+    font-size: 1.1rem;
+
+}
+
+.lateral_lista {
+    margin-top: 2rem;
+
+}
+
+.lateral_lista > li {
+    margin-top: 1.5rem;
+    cursor: pointer;
+}
