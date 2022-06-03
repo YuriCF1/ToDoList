@@ -1,6 +1,7 @@
 let data = new Date()
 
 function mostraHora() {
+    let data = new Date()
     let hora = data.getHours();
 
     if (hora < 10) {
