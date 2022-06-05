@@ -46,9 +46,16 @@ const adTrab = document.getElementById('maisTrabalho')
 const linha = document.querySelector('.card_linhas')
 const inicio = document.getElementById('cards_centro');
 
-let id = -1;
-let cont = 1;
-let atualizadas= 0 ;
+let id = 0;
+
+
+let metasFeitas = 0;
+let atualizadas = 0;
+
+let trabalhos;
+
+let telasLimpadas = 0;
+
 
 //Chamadas
 
@@ -85,34 +92,40 @@ let atualizadas= 0 ;
 // }
 
 const bancoTrabalho = [
-    {'tarefa': 'Andar', 'descricao': 'Calçada',},
-    {'tarefa': 'Nadar', 'descricao': 'Piscina',},
-    {'tarefa': 'Correr', 'descricao': 'Pista',},
-    
+    { 'tarefa': 'Andar', 'descricao': 'Calçada', },
+    { 'tarefa': 'Nadar', 'descricao': 'Piscina', },
+    { 'tarefa': 'Correr', 'descricao': 'Pista', },
+
 ]
 
 const atualizarTela = () => {
     limparTarefas();
     bancoTrabalho.forEach(item => criarTarefa(item.tarefa, item.descricao, item.indiceC));
-    
+    atualizadas++
 }
 
 const limparTarefas = () => {
-    while(linha.firstChild) {
+    while (linha.firstChild) {
         linha.removeChild(linha.lastChild);
+        telasLimpadas++
     }
 
 }
 
 const criarTarefa = (tarefa, descricao, indiceC, indiceD) => {
-// const criarTarefa = (tarefa, descricao, data, botao, indice) => {
+    let numMeta = 1;
     //inicio.style.display = 'none';
     const cardNovo = document.createElement('form'); // Cria um novo elemento <>
     cardNovo.classList.add('card_ad'); // Define o atributo de identificação HTML
-    id++ 
-    cardNovo.innerHTML = `
+    id++
+    // if (!bancoTrabalho[bancoTrabalho.length + 0]) {
+    //     tarefa = ''
+    // }
+
+    if (bancoTrabalho.length <= 4) {
+        cardNovo.innerHTML = `
                     <input id='card_ad__titulo${id}' class='card_ad__titulo' type='text' 
-                        placeholder='Meta ${cont}' data-tarefa='' value='${tarefa}'>
+                        placeholder='Meta ${numMeta}' data-tarefa='' value='${tarefa}'>
 
                     <label for='meta'>O que você vai fazer?</label>
 
@@ -129,32 +142,34 @@ const criarTarefa = (tarefa, descricao, indiceC, indiceD) => {
                     </div>
         `
         linha.appendChild(cardNovo);
-        cont++;
-        atualizadas++
+        numMeta++;
+        metasFeitas++;
     }
-    
-    adTrab.addEventListener('click', criarTarefa);
-    atualizarTela();
-    atualizarTela();
-    atualizarTela();
-    atualizarTela();
-    
-    const trabalhos = document.querySelectorAll('.card_ad__titulo');
-    
-    function varredura() {
-        let idTask;
-    for (let contador = 0; contador <= trabalhos.length; contador++) {
-        idTask = `#card_ad__titulo${atualizadas}`; //template string 
-        atualizadas--
-        console.log(idTask)
-        // mostra(`${idTask}`);
-        
-    }
-}    
+}
 
-varredura();    
-    
-    // trabalho.addEventListener('click', mostra);
-    
+atualizarTela();
+atualizarTela();
+atualizarTela();
+atualizarTela();
+
+function varredura() {
+    let idTask;
+    trabalhos = document.querySelectorAll('.card_ad__titulo')
+    for (let contador = 0; contador < trabalhos.length; contador++) {
+        idTask = `#card_ad__titulo${metasFeitas}`; //template string 
+        console.log(idTask)
+        metasFeitas--
+    }
+}
+varredura()
+
+console.log(trabalhos)
+console.log('meta f ' + metasFeitas)
+console.log('tela a ' + atualizadas)
+
+
+
+adTrab.addEventListener('click', criarTarefa)
+
     //Colher as listas de teclas para usar com o id
     //Olhar exempo de páginas dinâmicas
