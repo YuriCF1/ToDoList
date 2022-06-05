@@ -46,7 +46,7 @@ const adTrab = document.getElementById('maisTrabalho')
 const linha = document.querySelector('.card_linhas')
 const inicio = document.getElementById('cards_centro');
 
-let id = 1;
+let id = -1;
 let cont = 1;
 let atualizadas= 0 ;
 
@@ -132,28 +132,29 @@ const criarTarefa = (tarefa, descricao, indiceC, indiceD) => {
         cont++;
         atualizadas++
     }
-
-    const mostra = (evento) => {
-        const taska = evento.target.value;
-        console.log(taska)
-
-    }
-    
     
     adTrab.addEventListener('click', criarTarefa);
     atualizarTela();
     atualizarTela();
     atualizarTela();
     atualizarTela();
-    atualizarTela();
     
-    console.log(atualizadas)
+    const trabalhos = document.querySelectorAll('.card_ad__titulo');
     
-    id-= atualizadas - 3
-    const trabalho = document.getElementById("card_ad__titulo");
-    console.log(trabalho)
+    function varredura() {
+        let idTask;
+    for (let contador = 0; contador <= trabalhos.length; contador++) {
+        idTask = `#card_ad__titulo${atualizadas}`; //template string 
+        atualizadas--
+        console.log(idTask)
+        // mostra(`${idTask}`);
+        
+    }
+}    
 
-    trabalho.addEventListener('click', mostra);
+varredura();    
+    
+    // trabalho.addEventListener('click', mostra);
     
     //Colher as listas de teclas para usar com o id
     //Olhar exempo de páginas dinâmicas
