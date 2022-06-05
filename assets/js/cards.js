@@ -142,11 +142,15 @@ const criarTarefa = (tarefa, descricao, indiceC, indiceD) => {
     
     adTrab.addEventListener('click', criarTarefa);
     atualizarTela();
+    atualizarTela();
+    atualizarTela();
+    atualizarTela();
+    atualizarTela();
     
     console.log(atualizadas)
     
     id-= atualizadas - 3
-    const trabalho = document.querySelectorAll("card_ad__titulo");
+    const trabalho = document.getElementById("card_ad__titulo");
     console.log(trabalho)
 
     trabalho.addEventListener('click', mostra);
