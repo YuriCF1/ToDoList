@@ -48,14 +48,12 @@ const inicio = document.getElementById('cards_centro');
 
 let id = 0;
 
-
 let metasFeitas = 0;
 let atualizadas = 0;
 
 let trabalhos;
 
 let telasLimpadas = 0;
-
 
 //Chamadas
 
@@ -100,8 +98,15 @@ const bancoTrabalho = [
 
 const atualizarTela = () => {
     limparTarefas();
-    bancoTrabalho.forEach(item => criarTarefa(item.tarefa, item.descricao, item.indiceC));
+    bancoTrabalho.forEach((item, indice) => criarTarefa(item.tarefa, item.descricao, indice));
     atualizadas++
+
+    //________________________ESTUDO________________________________
+    //Uso do for each
+    // numbers.forEach((number, index, array) => {
+    //     console.log(array);
+    // });
+    
 }
 
 const limparTarefas = () => {
@@ -112,7 +117,7 @@ const limparTarefas = () => {
 
 }
 
-const criarTarefa = (tarefa, descricao, indiceC, indiceD) => {
+const criarTarefa = (tarefa, descricao, indice) => {
     let numMeta = 1;
     //inicio.style.display = 'none';
     const cardNovo = document.createElement('form'); // Cria um novo elemento <>
@@ -137,13 +142,15 @@ const criarTarefa = (tarefa, descricao, indiceC, indiceD) => {
                     <label for='tempo'>Qual o prazo?</label>
 
                     <div class="botoes">
-                        <input type="checkbox" value="Feito" data-indice="1" data-check=${indiceC}>
-                        <input class="btDelet" type="button" value="X" data-close=${indiceD}>
+                        <input type="checkbox" value="Feito" data-indice=${indice}>
+                        <input class="btDelet" type="button" value="X" data-indice=${indice}>
                     </div>
         `
         linha.appendChild(cardNovo);
+        console.log(indice)
         numMeta++;
         metasFeitas++;
+
     }
 }
 
@@ -152,7 +159,7 @@ atualizarTela();
 atualizarTela();
 atualizarTela();
 
-function varredura() {
+const varredura = () => {
     let idTask;
     trabalhos = document.querySelectorAll('.card_ad__titulo')
     for (let contador = 0; contador < trabalhos.length; contador++) {
@@ -164,12 +171,8 @@ function varredura() {
 varredura()
 
 console.log(trabalhos)
-console.log('meta f ' + metasFeitas)
-console.log('tela a ' + atualizadas)
-
-
 
 adTrab.addEventListener('click', criarTarefa)
 
-    //Colher as listas de teclas para usar com o id
-    //Olhar exempo de páginas dinâmicas
+
+//Olhar o código do vídeo do Código fonte de novo https://youtu.be/NfHVPEzo5Ik
