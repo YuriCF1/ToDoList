@@ -46,6 +46,7 @@ const adTrab = document.getElementById('maisTrabalho')
 const linha = document.querySelector('.card_linhas')
 const inicio = document.getElementById('cards_centro');
 
+
 let id = 0;
 
 let metasFeitas = 0;
@@ -90,15 +91,16 @@ let telasLimpadas = 0;
 // }
 
 const bancoTrabalho = [
-    { 'tarefa': 'Andar', 'descricao': 'Calçada', },
-    { 'tarefa': 'Nadar', 'descricao': 'Piscina', },
-    { 'tarefa': 'Correr', 'descricao': 'Pista', },
+    { 'tarefa': 'Andar', 'descricao': 'Calçada', 'status': '' },
+    { 'tarefa': 'Nadar', 'descricao': 'Piscina', 'status': '' },
+    { 'tarefa': 'Nadar', 'descricao': 'Piscina', 'status': '' },
+
 
 ]
 
 const atualizarTela = () => {
     limparTarefas();
-    bancoTrabalho.forEach((item, indice) => criarTarefa(item.tarefa, item.descricao, indice));
+    bancoTrabalho.forEach((item, indice) => criarTarefa(item.tarefa, item.descricao,item.status, indice));
     atualizadas++
 
     //________________________ESTUDO________________________________
@@ -117,20 +119,56 @@ const limparTarefas = () => {
 
 }
 
-const criarTarefa = (tarefa, descricao, indice) => {
-    let numMeta = 1;
+//_____________________________________CLIQUES___________________________________
+const tarefaClicada = (evento) => {
+    const elemento = evento.target;
+    const elementoPai = (elemento.parentElement.parentElement)
+    console.log(elemento)
+    console.log(elemento.parentElement.parentElement)
+    if (elemento.type === 'button') {
+        const indice = elemento.dataset.indice;
+        removerItem(indice)
+    } else if (elemento.type === 'checkbox') {
+        const indice = elemento.dataset.indice;
+        atualizarItem (indice, elementoPai);
+        
+    }
+}
+
+const removerItem = (indice) => {
+    bancoTrabalho.splice(indice,1);
+    atualizarTela(); 
+
+}
+
+const atualizarItem = (indice, elementoPai) => {
+    bancoTrabalho[indice].status = bancoTrabalho[indice].status === '' ? 'checked' : ''; //Verificação do status
+    if (bancoTrabalho[indice].status ==='checked'){
+        elementoPai.classList.remove("card_ad");
+        elementoPai.classList.add("card_ad__feito");
+    } else {
+        elementoPai.classList.remove("card_ad__feito");
+        elementoPai.classList.add("card_ad");
+
+    }
+}
+
+//____________________________CRIAR TAREFA_____________________
+const criarTarefa = (tarefa, descricao, status, indice) => {
+    var numMeta = bancoTrabalho.length;
+    // console.log('numero de metas: ' + numMeta)
     //inicio.style.display = 'none';
     const cardNovo = document.createElement('form'); // Cria um novo elemento <>
     cardNovo.classList.add('card_ad'); // Define o atributo de identificação HTML
     id++
-    // if (!bancoTrabalho[bancoTrabalho.length + 0]) {
-    //     tarefa = ''
-    // }
 
     if (bancoTrabalho.length <= 4) {
+        if (tarefa =='[object PointerEvent]') {
+            tarefa=''
+        }
         cardNovo.innerHTML = `
                     <input id='card_ad__titulo${id}' class='card_ad__titulo' type='text' 
-                        placeholder='Meta ${numMeta}' data-tarefa='' value='${tarefa}'>
+                    placeholder='Meta ${numMeta}' data-tarefa='' value='${tarefa}'>
 
                     <label for='meta'>O que você vai fazer?</label>
 
@@ -142,12 +180,12 @@ const criarTarefa = (tarefa, descricao, indice) => {
                     <label for='tempo'>Qual o prazo?</label>
 
                     <div class="botoes">
-                        <input type="checkbox" value="Feito" data-indice=${indice}>
+                        <input type="checkbox" value="Feito" ${status}='' data-indice=${indice}>
                         <input class="btDelet" type="button" value="X" data-indice=${indice}>
                     </div>
         `
         linha.appendChild(cardNovo);
-        console.log(indice)
+        // console.log(indice)
         numMeta++;
         metasFeitas++;
 
@@ -170,9 +208,9 @@ const varredura = () => {
 }
 varredura()
 
-console.log(trabalhos)
+// console.log(trabalhos)
 
 adTrab.addEventListener('click', criarTarefa)
-
+linha.addEventListener('click', tarefaClicada)
 
 //Olhar o código do vídeo do Código fonte de novo https://youtu.be/NfHVPEzo5Ik
