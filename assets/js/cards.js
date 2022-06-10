@@ -1,13 +1,10 @@
 //Gets
-
-
 const adTrab = document.getElementById('maisTrabalho')
 const linha = document.querySelector('.card_linhas')
+let inputsTarefas;
+let inputsDescricao;
 
 let id = 0;
-
-let metasFeitas = 0;
-let atualizadas = 0;
 
 let trabalhos;
 
@@ -24,7 +21,6 @@ const bancoTrabalho = getBanco();
 const atualizarTela = () => {
     limparTarefas();
     bancoTrabalho.forEach((item, indice) => criarTarefa(item.tarefa, item.descricao,item.status, indice));
-    atualizadas++
     //________________________ESTUDO________________________________
     //Uso do for each
     // numbers.forEach((number, index, array) => {
@@ -38,7 +34,7 @@ const limparTarefas = () => {
         linha.removeChild(linha.lastChild);
         telasLimpadas++
     }
-
+    
 }
 
 const atualizarItem = (indice, elementoPai) => {
@@ -59,6 +55,7 @@ const tarefaClicada = (evento) => {
     if (elemento.type === 'button') {
         const indice = elemento.dataset.indice;
         removerItem(indice)
+        console.log(indice) 
     } else if (elemento.type === 'checkbox') {
         const indice = elemento.dataset.indice;
         atualizarItem (indice, elementoPai);      
@@ -66,31 +63,21 @@ const tarefaClicada = (evento) => {
 }
 
 const removerItem = (indice) => {
-    bancoTrabalho.splice(indice,1);
+    bancoTrabalho.splice(indice, 1);
     atualizarTela(); 
 
 }
 
-const inserirItem = (indice) => {
-        inputTarefa = document.querySelectorAll('.card_ad__titulo')
-        inputTarefa.forEach((elemento) => {
-            elemento.addEventListener('click', (elemento) =>{
-                const task = elemento.target.value
-                bancoTrabalho.push ({'tarefa': task});
-                console.log(elemento.target)
-                console.log(bancoTrabalho)
-                console.log(task)
-            }) 
-        })
-    }
-    
 //____________________________CRIAR TAREFA_____________________
 const criarTarefa = (tarefa, descricao, status, indice) => {
     var numMeta = bancoTrabalho.length;
     // if (indice === undefined) {
     //     indice = bancoTrabalho.length + 1;
-
     // }
+
+    if (descricao === undefined) {
+        descricao = ''
+    }
     const cardNovo = document.createElement('form'); // Cria um novo elemento <>
     if (status ==='checked'){
         cardNovo.classList.add('card_ad__feito')
@@ -123,9 +110,17 @@ const criarTarefa = (tarefa, descricao, status, indice) => {
         `
         linha.appendChild(cardNovo);
         numMeta++;
-        metasFeitas++;
+        inputsTarefas = document.querySelectorAll('.card_ad__titulo');
+        inputsDescricao = document.querySelectorAll('.card_ad__inputs');
+        textoTarefas();
+        textoDescrição();
+
+    //Uso do for each
+    // numbers.forEach((number, index, array) => {
+    //     console.log(array);
+    // });
     }
-    inserirItem(indice);
+    // console.log(inputs)
 }
 
 atualizarTela();
@@ -133,25 +128,60 @@ atualizarTela();
 atualizarTela();
 atualizarTela();
 
-
-
-
-const varredura = () => {
-    let idTask;
-    trabalhos = document.querySelectorAll('.card_ad__titulo')
-    for (let contador = 0; contador < trabalhos.length; contador++) {
-        idTask = `#card_ad__titulo${metasFeitas}`; //template string 
-        console.log(idTask)
-        metasFeitas--
-    }
-    
-    inputTarefa = document.querySelectorAll('.card_ad__titulo')
+const porTarefasNoBanco = (tarefaTexto, index) => {
+    const task = bancoTrabalho.push ({'tarefa': tarefaTexto});
+    console.log(bancoTrabalho)
+    console.log(task)
 }
-varredura() // ???
+const porDescricacaoNoBanco = (descricaoDada, index) => {
+    const task = bancoTrabalho.push ({'descricao': descricaoDada});
 
-// console.log(trabalhos)
-console.log(inputTarefa)
+    console.log(bancoTrabalho)
+    console.log(task)
+}
+
+
+
+function textoTarefas () {
+    inputsTarefas.forEach((item, index) => {
+        item.addEventListener('click', (inputTask, index) => { //Chamando uma faunção anômima, por padrão já passa dos eventos
+            const tarefaDada = inputTask.target.value
+            console.log(tarefaDada) 
+            porTarefasNoBanco(tarefaDada, index) //Quando é input, value. Texto,textContent 
+        })
+    })
+
+}
+
+function textoDescrição () {
+    inputsDescricao.forEach((item, index) => {
+        item.addEventListener('click', (inputTask, index) => { //Chamando uma faunção anômima, por padrão já passa dos eventos
+            const descricaoDada = inputTask.target.textContent
+            console.log(descricaoDada)
+            porDescricacaoNoBanco(descricaoDada, index) //Quando é input, value. Texto,textContent  
+})
+})
+
+}
 adTrab.addEventListener('click', criarTarefa)
 linha.addEventListener('click', tarefaClicada)
+
+
+
+// const varredura = () => {
+//     let idTask;
+//     trabalhos = document.querySelectorAll('.card_ad__titulo')
+//     for (let contador = 0; contador < trabalhos.length; contador++) {
+//         idTask = `#card_ad__titulo${metasFeitas}`; //template string 
+//         console.log(idTask)
+//         metasFeitas--
+//     }
+    
+//     inputTarefa = document.querySelectorAll('.card_ad__titulo')
+// }
+// varredura() // ???
+
+// console.log(trabalhos)
+
 //Olhar o código do vídeo do Código fonte de novo https://youtu.be/NfHVPEzo5Ik
 // Erro em inserir item
