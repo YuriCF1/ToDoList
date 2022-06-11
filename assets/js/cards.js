@@ -13,10 +13,18 @@ let telasLimpadas = 0;
 var inputTarefa;
 
 // const setBanco = () => JSON.stringify(localStorage.getItem('toDoList')) ?? []; // ?? = Se não existir
-const getBanco = () => JSON.parse(localStorage.getItem('toDoList')) ?? []; // ?? = Se não existir
 
+// const getBanco = () => JSON.parse(localStorage.getItem('toDoList')) ?? []; // ?? = Se não existir
+// const bancoTrabalho = getBanco();
 
-const bancoTrabalho = getBanco();
+let bancoTrabalho = [
+    {'tarefa': "Andar", 'descricao': "Calçada", 'status': ""},
+    {'tarefa': "Correr", 'descricao': "Rua", 'status': "checked"},
+    {'tarefa': "Nadar", 'descricao': "Piscina", 'status': ""}
+    
+    
+]
+
 
 const atualizarTela = () => {
     limparTarefas();
@@ -37,6 +45,12 @@ const limparTarefas = () => {
     
 }
 
+function pushBanco()  {
+    bancoTrabalho.push ({'tarefa': '', 'descricao': '', 'status': ''});
+        atualizarTela()
+        console.log(bancoTrabalho)
+} 
+
 const atualizarItem = (indice, elementoPai) => {
     bancoTrabalho[indice].status = bancoTrabalho[indice].status === '' ? 'checked' : ''; //Verificação do status
     if (bancoTrabalho[indice].status ==='checked'){
@@ -55,10 +69,15 @@ const tarefaClicada = (evento) => {
     if (elemento.type === 'button') {
         const indice = elemento.dataset.indice;
         removerItem(indice)
-        console.log(indice) 
+        // console.log(indice) 
     } else if (elemento.type === 'checkbox') {
         const indice = elemento.dataset.indice;
         atualizarItem (indice, elementoPai);      
+    }
+    const tarefaId = evento.target.dataset.tarefa;
+    console.log(tarefaId)
+    if (tarefaId > bancoTrabalho.length) {
+
     }
 }
 
@@ -70,29 +89,29 @@ const removerItem = (indice) => {
 
 //____________________________CRIAR TAREFA_____________________
 const criarTarefa = (tarefa, descricao, status, indice) => {
-    var numMeta = bancoTrabalho.length;
-    // if (indice === undefined) {
-    //     indice = bancoTrabalho.length + 1;
-    // }
+    let numMeta = indice + 1;
+    const cardNovo = document.createElement(`form`); // Cria um novo elemento <>
+    let data = `${indice}`
+    cardNovo.setAttribute('data-tarefa', data)
 
     if (descricao === undefined) {
         descricao = ''
     }
-    const cardNovo = document.createElement('form'); // Cria um novo elemento <>
     if (status ==='checked'){
-        cardNovo.classList.add('card_ad__feito')
+        cardNovo.classList.add(`card_ad__feito`)
     } else {
-        cardNovo.classList.add('card_ad'); // Define o atributo de identificação HTML
+        cardNovo.classList.add(`card_ad`); // Define o atributo de identificação HTML
     }
+
     id++
-    if (bancoTrabalho.length <= 4) {
+    if (bancoTrabalho.length <= 100) {
         if (tarefa =='[object PointerEvent]') {
             tarefa=''
         }
         
         cardNovo.innerHTML = `
                     <input id='card_ad__titulo${id}' class='card_ad__titulo' type='text' 
-                    placeholder='Meta ${numMeta}' data-tarefa=${indice} value='${tarefa}'>
+                    placeholder='Meta ${numMeta}' value='${tarefa}'>
 
                     <label for='meta'>O que você vai fazer?</label>
 
@@ -109,16 +128,11 @@ const criarTarefa = (tarefa, descricao, status, indice) => {
                     </div>
         `
         linha.appendChild(cardNovo);
-        numMeta++;
         inputsTarefas = document.querySelectorAll('.card_ad__titulo');
         inputsDescricao = document.querySelectorAll('.card_ad__inputs');
-        textoTarefas();
-        textoDescrição();
-
-    //Uso do for each
-    // numbers.forEach((number, index, array) => {
-    //     console.log(array);
-    // });
+        numMeta++
+        // textoTarefas();
+        // textoDescrição();
     }
     // console.log(inputs)
 }
@@ -128,11 +142,13 @@ atualizarTela();
 atualizarTela();
 atualizarTela();
 
+//Por no banco
 const porTarefasNoBanco = (tarefaTexto, index) => {
     const task = bancoTrabalho.push ({'tarefa': tarefaTexto});
     console.log(bancoTrabalho)
     console.log(task)
 }
+
 const porDescricacaoNoBanco = (descricaoDada, index) => {
     const task = bancoTrabalho.push ({'descricao': descricaoDada});
 
@@ -140,31 +156,36 @@ const porDescricacaoNoBanco = (descricaoDada, index) => {
     console.log(task)
 }
 
-
-
-function textoTarefas () {
-    inputsTarefas.forEach((item, index) => {
-        item.addEventListener('click', (inputTask, index) => { //Chamando uma faunção anômima, por padrão já passa dos eventos
-            const tarefaDada = inputTask.target.value
-            console.log(tarefaDada) 
-            porTarefasNoBanco(tarefaDada, index) //Quando é input, value. Texto,textContent 
-        })
-    })
-
-}
-
-function textoDescrição () {
-    inputsDescricao.forEach((item, index) => {
-        item.addEventListener('click', (inputTask, index) => { //Chamando uma faunção anômima, por padrão já passa dos eventos
-            const descricaoDada = inputTask.target.textContent
-            console.log(descricaoDada)
-            porDescricacaoNoBanco(descricaoDada, index) //Quando é input, value. Texto,textContent  
-})
-})
-
-}
-adTrab.addEventListener('click', criarTarefa)
+adTrab.addEventListener('click', pushBanco)
 linha.addEventListener('click', tarefaClicada)
+
+// Trabalhar com o banco de dados e evoluir a identificação
+
+// //Cliques
+// function textoTarefas () {
+//     inputsTarefas.forEach((item, index) => {
+//         item.addEventListener('click', (inputTask, index) => { //Chamando uma faunção anômima, por padrão já passa dos eventos
+//             const tarefaDada = inputTask.target.value
+//             console.log(tarefaDada) 
+//             porTarefasNoBanco(tarefaDada, index) //Quando é input, value. Texto,textContent 
+//         })
+//     })
+
+// }
+
+// function textoDescrição () {
+//     inputsDescricao.forEach((item, index) => {
+//         item.addEventListener('click', (inputTask, index) => { //Chamando uma faunção anômima, por padrão já passa dos eventos
+//             const descricaoDada = inputTask.target.textContent
+//             console.log(descricaoDada)
+//             porDescricacaoNoBanco(descricaoDada, index) //Quando é input, value. Texto,textContent  
+// })
+// })
+
+// }
+
+
+
 
 
 
