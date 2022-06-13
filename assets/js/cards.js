@@ -4,6 +4,8 @@ const linha = document.querySelector('.card_linhas')
 let inputsTarefas;
 let inputsDescricao;
 
+var tarefasCriadas;
+
 let id = 0;
 
 let trabalhos;
@@ -28,13 +30,13 @@ let bancoTrabalho = [
 
 const atualizarTela = () => {
     limparTarefas();
-    bancoTrabalho.forEach((item, indice) => criarTarefa(item.tarefa, item.descricao,item.status, indice));
+        bancoTrabalho.forEach((item, indice) => criarTarefa(item.tarefa, item.descricao,item.status, indice));
     //________________________ESTUDO________________________________
     //Uso do for each
     // numbers.forEach((number, index, array) => {
     //     console.log(array);
     // });
-
+    updatingCardlist()
 }
 
 const limparTarefas = () => {
@@ -47,10 +49,14 @@ const limparTarefas = () => {
 
 function pushBanco()  {
     bancoTrabalho.push ({'tarefa': '', 'descricao': '', 'status': ''});
+    if (bancoTrabalho.length < 6) {
         atualizarTela()
-        console.log(bancoTrabalho)
+    } else {
+        bancoTrabalho.pop();
+    }
+    console.log(bancoTrabalho)
 } 
-
+//_____________________________________VERIFICAR O STATUS___________________________________
 const atualizarItem = (indice, elementoPai) => {
     bancoTrabalho[indice].status = bancoTrabalho[indice].status === '' ? 'checked' : ''; //Verificação do status
     if (bancoTrabalho[indice].status ==='checked'){
@@ -75,10 +81,12 @@ const tarefaClicada = (evento) => {
         atualizarItem (indice, elementoPai);      
     }
     const tarefaId = evento.target.dataset.tarefa;
-    console.log(tarefaId)
     if (tarefaId > bancoTrabalho.length) {
-
     }
+    
+    // console.log(elemento.dataset.task)
+    // console.log(elemento.value)
+
 }
 
 const removerItem = (indice) => {
@@ -103,20 +111,20 @@ const criarTarefa = (tarefa, descricao, status, indice) => {
         cardNovo.classList.add(`card_ad`); // Define o atributo de identificação HTML
     }
 
+    if (tarefa =='[object PointerEvent]') {
+        tarefa=''
+    }
+
     id++
-    if (bancoTrabalho.length <= 100) {
-        if (tarefa =='[object PointerEvent]') {
-            tarefa=''
-        }
-        
+    if (bancoTrabalho.length < 6) {
         cardNovo.innerHTML = `
                     <input id='card_ad__titulo${id}' class='card_ad__titulo' type='text' 
-                    placeholder='Meta ${numMeta}' value='${tarefa}'>
+                    placeholder='Meta ${numMeta}' value='${tarefa}' data-task=${indice}>
 
                     <label for='meta'>O que você vai fazer?</label>
 
                     <textarea class='card_ad__inputs' id='meta' type='text' 
-                    rows='4' cols='10' placeholder='Irei...' data-descricao=''
+                    rows='4' cols='10' placeholder='Irei...' data-descricao=${indice}'
                     value=''
                     >${descricao}</textarea>
 
@@ -128,13 +136,34 @@ const criarTarefa = (tarefa, descricao, status, indice) => {
                     </div>
         `
         linha.appendChild(cardNovo);
-        inputsTarefas = document.querySelectorAll('.card_ad__titulo');
-        inputsDescricao = document.querySelectorAll('.card_ad__inputs');
+        // inputsTarefas = document.querySelectorAll('.card_ad__titulo');
+        // inputsDescricao = document.querySelectorAll('.card_ad__inputs');
         numMeta++
         // textoTarefas();
         // textoDescrição();
+
     }
+    
+    tarefasCriadas = document.querySelectorAll('[data-tarefa]')
     // console.log(inputs)
+}
+
+function updatingCardlist() {
+    tarefasCriadas.forEach((elemento) => 
+    elemento.addEventListener('click', (event) => {
+        const target = event.target;
+        target.addEventListener('blur', () => {
+        const index = elemento.dataset.tarefa;
+        const textTask = elemento.querySelector('[data-task]').value; 
+        const textDescription = elemento.querySelector('[data-descricao]').value;
+        console.log(index)
+        console.log(textTask)
+        console.log(textDescription)
+        console.log(target)
+        refreshBank(index, textTask, textDescription)
+        })
+    })
+    )
 }
 
 atualizarTela();
@@ -142,7 +171,18 @@ atualizarTela();
 atualizarTela();
 atualizarTela();
 
+
 //Por no banco
+function refreshBank(index, textTask, textDescription) {
+        bancoTrabalho[index] = ({'tarefa': textTask, 'descricao': textDescription, 'status': ''});
+        console.log(bancoTrabalho[index].tarefa)
+        // console.log(bancoTrabalho[indice].descricao)
+        console.log(bancoTrabalho)
+    
+}
+
+
+
 const porTarefasNoBanco = (tarefaTexto, index) => {
     const task = bancoTrabalho.push ({'tarefa': tarefaTexto});
     console.log(bancoTrabalho)
@@ -151,7 +191,6 @@ const porTarefasNoBanco = (tarefaTexto, index) => {
 
 const porDescricacaoNoBanco = (descricaoDada, index) => {
     const task = bancoTrabalho.push ({'descricao': descricaoDada});
-
     console.log(bancoTrabalho)
     console.log(task)
 }
@@ -159,7 +198,6 @@ const porDescricacaoNoBanco = (descricaoDada, index) => {
 adTrab.addEventListener('click', pushBanco)
 linha.addEventListener('click', tarefaClicada)
 
-// Trabalhar com o banco de dados e evoluir a identificação
 
 // //Cliques
 // function textoTarefas () {
