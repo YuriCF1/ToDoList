@@ -168,7 +168,6 @@ const tarefaClicada = (evento) => {
   if (elemento.type === "button") {
     const indice = elemento.dataset.indice;
     removerItem(indice);
-    console.log("Excluiu");
   } else if (elemento.type === "checkbox") {
     const indice = elemento.dataset.indice;
     atualizarItem(indice, elementoPai);
@@ -176,18 +175,22 @@ const tarefaClicada = (evento) => {
 
   } else if (elemento.dataset.task) {
     elemento.addEventListener('blur', () => {
+      console.log(elemento);
       let textT = elemento.value;
       let index = elemento.dataset.task;
       console.log(textT);
       updateBankT(index, textT);
     });
-
+    
   } else if (elemento.dataset.descricao) {
-    let textD = elemento.value;
-    let index = elemento.dataset.descricao;
-    console.log(textD);
-    console.log(index);
-    updateBankD(index, textD);
+    elemento.addEventListener('blur', () => {
+      console.log(elemento);
+      let textD = elemento.value;
+      let index = elemento.dataset.task;
+      console.log(textD);
+      updateBankT(index, textD);
+    });
+    
   }
   console.log(elemento);
   //Testar o label da descricação
@@ -206,6 +209,7 @@ function updateBankD(index, textD) {
 
 adTrab.addEventListener("click", pushBanco);
 linha.addEventListener("click", tarefaClicada);
+linha.addEventListener("mousedown", tarefaClicada);
 
 // const porTarefasNoBanco = (tarefaTexto, index) => {
 //     const task = bancoTrabalho.push ({'tarefa': tarefaTexto});
