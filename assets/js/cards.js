@@ -16,19 +16,20 @@ var inputTarefa;
 //__________________IDEIAS____________________
 //Quantas tarefas voce quer focar?
 
-// const setBanco = () => JSON.stringify(localStorage.getItem('toDoList')) ?? []; // ?? = Se não existir
+const getBanco = () => JSON.parse(localStorage.getItem("toDoList")) ?? []; // ?? = Se não existir
+const setBanco = (bancoTrabalho) => localStorage.setItem("toDoList", JSON.stringify(bancoTrabalho)); //
 
-// const getBanco = () => JSON.parse(localStorage.getItem('toDoList')) ?? []; // ?? = Se não existir
 // const bancoTrabalho = getBanco();
 
-let bancoTrabalho = [
-  { tarefa: "Andar", descricao: "Calçada", status: "" },
-  { tarefa: "Correr", descricao: "Rua", status: "checked" },
-  { tarefa: "Nadar", descricao: "Piscina", status: "" },
-];
+// let bancoTrabalho = [
+//   { tarefa: "Andar", descricao: "Calçada", status: "" },
+//   { tarefa: "Correr", descricao: "Rua", status: "checked" },
+//   { tarefa: "Nadar", descricao: "Piscina", status: "" },
+// ];
 
 const atualizarTela = () => {
   limparTarefas();
+  const bancoTrabalho = getBanco();
   bancoTrabalho.forEach((item, indice) =>
     criarTarefa(item.tarefa, item.descricao, item.status, indice)
   );
@@ -47,16 +48,21 @@ const limparTarefas = () => {
 };
 
 function pushBanco() {
-  bancoTrabalho.push({ tarefa: "", descricao: "", status: "" });
-  if (bancoTrabalho.length < 6) {
+  const bancoTrabalho = getBanco();
+  if (bancoTrabalho.length < 5) {
+    const bancoTrabalho = getBanco();
+    bancoTrabalho.push({ tarefa: "", descricao: "", status: "" });
+    setBanco(bancoTrabalho);
     atualizarTela();
   } else {
     bancoTrabalho.pop();
+    alert('Foca nas 5')
   }
   console.log(bancoTrabalho);
 }
 //_____________________________________VERIFICAR O STATUS___________________________________
 const atualizarItem = (indice, elementoPai) => {
+  const bancoTrabalho = getBanco();
   bancoTrabalho[indice].status =
     bancoTrabalho[indice].status === "" ? "checked" : ""; //Verificação do status
   if (bancoTrabalho[indice].status === "checked") {
@@ -66,12 +72,15 @@ const atualizarItem = (indice, elementoPai) => {
     elementoPai.classList.remove("card_ad__feito");
     elementoPai.classList.add("card_ad");
   }
+  setBanco(bancoTrabalho)
 };
 
 //_____________________________________CLIQUES___________________________________
 
 const removerItem = (indice) => {
+  const bancoTrabalho = getBanco();
   bancoTrabalho.splice(indice, 1);
+  setBanco(bancoTrabalho)
   atualizarTela();
 };
 
@@ -94,9 +103,11 @@ const criarTarefa = (tarefa, descricao, status, indice) => {
   if (tarefa == "[object PointerEvent]") {
     tarefa = "";
   }
-
+  
   id++;
-  if (bancoTrabalho.length < 6) {
+
+  const bancoTrabalho = getBanco();
+
     cardNovo.innerHTML = `
                     <input id='card_ad__titulo${id}' class='card_ad__titulo' type='text' 
                     placeholder='Meta ${numMeta}' value='${tarefa}' data-task=${indice}>
@@ -120,7 +131,7 @@ const criarTarefa = (tarefa, descricao, status, indice) => {
     numMeta++;
     // textoTarefas();
     // textoDescrição();
-  }
+  
 
   tarefasCriadas = document.querySelectorAll("[data-tarefa]");
   // console.log(inputs)
@@ -198,14 +209,16 @@ const clickOnTexts = (evento) => {
 };
 
 function updateBankT(index, textT) {
-  //   bancoTrabalho[index] = { tarefa: textT, descricao: textD, status: "" };
+  const bancoTrabalho = getBanco();
   bancoTrabalho[index].tarefa = textT;
   console.log(bancoTrabalho);
+  setBanco(bancoTrabalho)
 }
 function updateBankD(index, textD) {
-  //   bancoTrabalho[index] = { tarefa: textT, descricao: textD, status: "" };
+  const bancoTrabalho = getBanco();
   bancoTrabalho[index].descricao = textD;
   console.log(bancoTrabalho);
+  setBanco(bancoTrabalho)
 }
 
 adTrab.addEventListener("click", pushBanco);
