@@ -162,7 +162,7 @@ const updatingCardlist = () => {
   );
 };
 
-const tarefaClicada = (evento) => {
+const clickOnButtons = (evento) => {
   const elemento = evento.target;
   const elementoPai = elemento.parentElement.parentElement;
   if (elemento.type === "button") {
@@ -171,26 +171,27 @@ const tarefaClicada = (evento) => {
   } else if (elemento.type === "checkbox") {
     const indice = elemento.dataset.indice;
     atualizarItem(indice, elementoPai);
+  }
+};
 
-
-  } else if (elemento.dataset.task) {
-    elemento.addEventListener('blur', () => {
+const clickOnTexts = (evento) => {
+  const elemento = evento.target;
+  if (elemento.dataset.task) {
+    elemento.addEventListener("blur", () => {
       console.log(elemento);
       let textT = elemento.value;
       let index = elemento.dataset.task;
       console.log(textT);
       updateBankT(index, textT);
     });
-    
   } else if (elemento.dataset.descricao) {
-    elemento.addEventListener('blur', () => {
+    elemento.addEventListener("blur", () => {
       console.log(elemento);
       let textD = elemento.value;
-      let index = elemento.dataset.task;
+      let index = elemento.dataset.descricao;
       console.log(textD);
-      updateBankT(index, textD);
+      updateBankD(index, textD);
     });
-    
   }
   console.log(elemento);
   //Testar o label da descricação
@@ -208,8 +209,16 @@ function updateBankD(index, textD) {
 }
 
 adTrab.addEventListener("click", pushBanco);
-linha.addEventListener("click", tarefaClicada);
-linha.addEventListener("mousedown", tarefaClicada);
+
+linha.addEventListener("click", clickOnButtons);
+linha.addEventListener("mousedown", clickOnTexts);
+
+linha.addEventListener("keydown", function (event) {
+  const code = event.key;
+  if (code === "Tab") {
+    clickOnTexts(event);
+  }
+});
 
 // const porTarefasNoBanco = (tarefaTexto, index) => {
 //     const task = bancoTrabalho.push ({'tarefa': tarefaTexto});
