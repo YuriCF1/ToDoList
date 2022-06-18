@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 
 <head>
     <meta charset="UTF-8">
@@ -32,7 +32,7 @@
 
 </head>
 
-<body onload="mostraTempo()">
+<body onload="mostraTempo(); comeca()">
 <!-- <body onload="mostraTempo(); comeca()"> -->
     <!-- TAG DO PROJETO COMPLETO -->
     <header>
@@ -41,8 +41,6 @@
                 <img class="logo" src="assets/img/Logo.png" alt="Logo representando tarefas">
             </h1>
             <h2>Suas metas</h2>
-
-
             <div class="cabecalho_slider">
                 <div class="cabecalho_slider__conteudo">
                     <div class="slider">
@@ -77,7 +75,7 @@
         <section class="cards_container">
             <div class="lateral">
                 <p class="lateral_frase">Suas metas</p>
-                <nav>
+                <nav> 
                     <ul class="lateral_lista">
                         <li>Trabalho <i id="maisTrabalho" class="fa-solid fa-circle-plus"></i></li>
                         <li>Estudo <i id="maisEstudo" class="fa-solid fa-circle-plus"></i></li>
@@ -87,8 +85,10 @@
             <!--_______________________________INICIO____________________________________________-->
             <div id="cards_centro" class="cards_centro">
                 <div>
-                    <p class="cards_inicio">Adicione suas metas</p>
-                    <p class="cards_iniciosub">Clicando na lateral esquerda</p>
+                    <div class="cards_centro__tela">   
+                        <p class="cards_inicio">Adicione suas metas</p>
+                        <p class="cards_iniciosub">Clicando na lateral esquerda</p>
+                    </div>
                 </div>
             </div>
         </section>
@@ -105,6 +105,7 @@
     </main>
     <script src="assets/js/tempo.js"></script>
     <script src="assets/js/cards.js"></script>
+    <script src="assets/js/contagem-regressiva.js"></script>
     <!-- <script src="assets/js/contagem-regressiva.js"></script> -->
 </body>
 

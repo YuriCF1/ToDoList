@@ -1,25 +1,20 @@
 //Gets
 const adTrab = document.getElementById("maisTrabalho");
 const linha = document.querySelector(".card_linhas");
-let inputsTarefas;
-let inputsDescricao;
+const telaInicio = document.querySelector(".cards_centro__tela");
 
-var tarefasCriadas;
+// var tarefasCriadas;
+var botoesCriados;
 
 let id = 0;
 
-let trabalhos;
-
-let telasLimpadas = 0;
-
-var inputTarefa;
 //__________________IDEIAS____________________
 //Quantas tarefas voce quer focar?
+//Exemplos de tarefas inspiracionais
 
 const getBanco = () => JSON.parse(localStorage.getItem("toDoList")) ?? []; // ?? = Se não existir
-const setBanco = (bancoTrabalho) => localStorage.setItem("toDoList", JSON.stringify(bancoTrabalho)); //
-
-// const bancoTrabalho = getBanco();
+const setBanco = (bancoTrabalho) =>
+  localStorage.setItem("toDoList", JSON.stringify(bancoTrabalho)); //
 
 // let bancoTrabalho = [
 //   { tarefa: "Andar", descricao: "Calçada", status: "" },
@@ -43,7 +38,7 @@ const atualizarTela = () => {
 const limparTarefas = () => {
   while (linha.firstChild) {
     linha.removeChild(linha.lastChild);
-    telasLimpadas++;
+    // telasLimpadas++;
   }
 };
 
@@ -56,7 +51,7 @@ function pushBanco() {
     atualizarTela();
   } else {
     bancoTrabalho.pop();
-    alert('Foca nas 5')
+    alert("Foca nas 5");
   }
   console.log(bancoTrabalho);
 }
@@ -72,7 +67,7 @@ const atualizarItem = (indice, elementoPai) => {
     elementoPai.classList.remove("card_ad__feito");
     elementoPai.classList.add("card_ad");
   }
-  setBanco(bancoTrabalho)
+  setBanco(bancoTrabalho);
 };
 
 //_____________________________________CLIQUES___________________________________
@@ -80,8 +75,11 @@ const atualizarItem = (indice, elementoPai) => {
 const removerItem = (indice) => {
   const bancoTrabalho = getBanco();
   bancoTrabalho.splice(indice, 1);
-  setBanco(bancoTrabalho)
+  setBanco(bancoTrabalho);
   atualizarTela();
+  if (bancoTrabalho.length <= 0) {
+    telaInicio.style.display = "block";
+  }
 };
 
 //____________________________CRIAR TAREFA_____________________
@@ -103,12 +101,12 @@ const criarTarefa = (tarefa, descricao, status, indice) => {
   if (tarefa == "[object PointerEvent]") {
     tarefa = "";
   }
-  
+
   id++;
 
-  const bancoTrabalho = getBanco();
-
-    cardNovo.innerHTML = `
+  let min = new Date().toISOString().slice(0, 16); //Determinadno
+  // const bancoTrabalho = getBanco();
+  cardNovo.innerHTML = `
                     <input id='card_ad__titulo${id}' class='card_ad__titulo' type='text' 
                     placeholder='Meta ${numMeta}' value='${tarefa}' data-task=${indice}>
 
@@ -118,61 +116,40 @@ const criarTarefa = (tarefa, descricao, status, indice) => {
                     value=''
                     >${descricao}</textarea>
 
-                    <label for='tempo'>Qual o prazo?</label>
-
+                    
                     <div class="botoes">
-                        <input type="checkbox" ${status}='' data-indice=${indice}>
+                    <label for='tempo'>Tarefa feita?</label>
+                        <input type="checkbox" id='tempo' ${status}='' data-indice=${indice}>
                         <input class="btDelet" type="button" value="X" data-indice=${indice}>
                     </div>
+
+                    <div class="contador">
+                      <label for="tempo" class="contador_titulo">Escolha</label>
+
+                      <input class='card_ad__tempo' type='datetime-local' min=${min} name='' id='r-data-' data-dates=${indice}>
+
+                      <input class="botao" type="submit" value="Calcular!" id="botao" name="botao" data-botoes=${indice}/>
+            </div>
+
+            <div class="resultado">
+              <time class="f_dias"></time>
+              <time class="f_horas"></time>
+              <time class="f_minutos"></time>
+              <time class="f_segundos"></time>
+            </div>
         `;
-    linha.appendChild(cardNovo);
-    // inputsTarefas = document.querySelectorAll('.card_ad__titulo');
-    // inputsDescricao = document.querySelectorAll('.card_ad__inputs');
-    numMeta++;
-    // textoTarefas();
-    // textoDescrição();
-  
+  linha.appendChild(cardNovo);
 
-  tarefasCriadas = document.querySelectorAll("[data-tarefa]");
-  // console.log(inputs)
+  numMeta++;
+
+  // tarefasCriadas = document.querySelectorAll("[data-tarefa]");
+
+  botoesCriados = document.querySelectorAll("[data-dates]");
+  botoesCriados = document.querySelectorAll("[data-botoes]");
+  telaInicio.style.display = "none";
 };
 
-atualizarTela();
-atualizarTela();
-atualizarTela();
-atualizarTela();
-
-//Por no banco
-// function refreshBank(index, textTask, textDescription) {
-//   bancoTrabalho[index] = {
-//     tarefa: textTask,
-//     descricao: textDescription,
-//     status: "",
-//   };
-//   console.log(bancoTrabalho[index].tarefa);
-//   // console.log(bancoTrabalho[indice].descricao)
-//   console.log(bancoTrabalho);
-// }
-
-const updatingCardlist = () => {
-  tarefasCriadas.forEach((elemento) =>
-    elemento.addEventListener("click", (event) => {
-      const target = event.target;
-      target.addEventListener("blur", () => {
-        const index = elemento.dataset.tarefa;
-        const textTask = elemento.querySelector("[data-task]").value;
-        const textDescription =
-          elemento.querySelector("[data-descricao]").value;
-        console.log(index);
-        console.log(textTask);
-        console.log(textDescription);
-        console.log(target);
-        refreshBank(index, textTask, textDescription);
-      });
-    })
-  );
-};
-
+//Clicando nos botões de tarefas
 const clickOnButtons = (evento) => {
   const elemento = evento.target;
   const elementoPai = elemento.parentElement.parentElement;
@@ -185,6 +162,7 @@ const clickOnButtons = (evento) => {
   }
 };
 
+//Clicando no texto
 const clickOnTexts = (evento) => {
   const elemento = evento.target;
   if (elemento.dataset.task) {
@@ -208,24 +186,27 @@ const clickOnTexts = (evento) => {
   //Testar o label da descricação
 };
 
+//Upando o banco tarefa
 function updateBankT(index, textT) {
   const bancoTrabalho = getBanco();
   bancoTrabalho[index].tarefa = textT;
   console.log(bancoTrabalho);
-  setBanco(bancoTrabalho)
+  setBanco(bancoTrabalho);
 }
+
+//Upando o banco descrição
 function updateBankD(index, textD) {
   const bancoTrabalho = getBanco();
   bancoTrabalho[index].descricao = textD;
   console.log(bancoTrabalho);
-  setBanco(bancoTrabalho)
+  setBanco(bancoTrabalho);
 }
 
+//Chamando funções de eventos
 adTrab.addEventListener("click", pushBanco);
 
 linha.addEventListener("click", clickOnButtons);
 linha.addEventListener("mousedown", clickOnTexts);
-
 linha.addEventListener("keydown", function (event) {
   const code = event.key;
   if (code === "Tab") {
@@ -233,57 +214,14 @@ linha.addEventListener("keydown", function (event) {
   }
 });
 
-// const porTarefasNoBanco = (tarefaTexto, index) => {
-//     const task = bancoTrabalho.push ({'tarefa': tarefaTexto});
-//     console.log(bancoTrabalho)
-//     console.log(task)
-// }
+document.addEventListener("keydown", function (event) {
+  const code = event.key;
+  if (code === "Enter") {
+    clickOnTexts(event);
+    atualizarTela();
+  }
+});
 
-// const porDescricacaoNoBanco = (descricaoDada, index) => {
-//     const task = bancoTrabalho.push ({'descricao': descricaoDada});
-//     console.log(bancoTrabalho)
-//     console.log(task)
-// }
-
-//_____________________________________________________________________
-
-// //Cliques
-// function textoTarefas () {
-//     inputsTarefas.forEach((item, index) => {
-//         item.addEventListener('click', (inputTask, index) => { //Chamando uma faunção anômima, por padrão já passa dos eventos
-//             const tarefaDada = inputTask.target.value
-//             console.log(tarefaDada)
-//             porTarefasNoBanco(tarefaDada, index) //Quando é input, value. Texto,textContent
-//         })
-//     })
-
-// }
-
-// function textoDescrição () {
-//     inputsDescricao.forEach((item, index) => {
-//         item.addEventListener('click', (inputTask, index) => { //Chamando uma faunção anômima, por padrão já passa dos eventos
-//             const descricaoDada = inputTask.target.textContent
-//             console.log(descricaoDada)
-//             porDescricacaoNoBanco(descricaoDada, index) //Quando é input, value. Texto,textContent
-// })
-// })
-
-// }
-
-// const varredura = () => {
-//     let idTask;
-//     trabalhos = document.querySelectorAll('.card_ad__titulo')
-//     for (let contador = 0; contador < trabalhos.length; contador++) {
-//         idTask = `#card_ad__titulo${metasFeitas}`; //template string
-//         console.log(idTask)
-//         metasFeitas--
-//     }
-
-//     inputTarefa = document.querySelectorAll('.card_ad__titulo')
-// }
-// varredura() // ???
-
-// console.log(trabalhos)
-
+atualizarTela();
 //Olhar o código do vídeo do Código fonte de novo https://youtu.be/NfHVPEzo5Ik
 // Erro em inserir item
