@@ -4,7 +4,8 @@ const linha = document.querySelector(".card_linhas");
 const telaInicio = document.querySelector(".cards_centro__tela");
 
 // var tarefasCriadas;
-var botoesCriados;
+var datasCriadas;
+let botoesCriados;
 
 let id = 0;
 
@@ -38,7 +39,6 @@ const atualizarTela = () => {
 const limparTarefas = () => {
   while (linha.firstChild) {
     linha.removeChild(linha.lastChild);
-    // telasLimpadas++;
   }
 };
 
@@ -70,8 +70,7 @@ const atualizarItem = (indice, elementoPai) => {
   setBanco(bancoTrabalho);
 };
 
-//_____________________________________CLIQUES___________________________________
-
+//Remoção de item
 const removerItem = (indice) => {
   const bancoTrabalho = getBanco();
   bancoTrabalho.splice(indice, 1);
@@ -104,7 +103,7 @@ const criarTarefa = (tarefa, descricao, status, indice) => {
 
   id++;
 
-  let min = new Date().toISOString().slice(0, 16); //Determinadno
+  let min = new Date().toISOString().slice(0, 16); //Determinando data mínima, como data atual
   // const bancoTrabalho = getBanco();
   cardNovo.innerHTML = `
                     <input id='card_ad__titulo${id}' class='card_ad__titulo' type='text' 
@@ -113,8 +112,7 @@ const criarTarefa = (tarefa, descricao, status, indice) => {
                     <label for='meta${indice}'>O que você vai fazer?</label>
                     <textarea class='card_ad__inputs' id='meta${indice}' type='text' 
                     rows='4' cols='10' placeholder='Irei...' data-descricao=${indice}
-                    value=''
-                    >${descricao}</textarea>
+                    value=''>${descricao}</textarea>
 
                     
                     <div class="botoes">
@@ -128,15 +126,15 @@ const criarTarefa = (tarefa, descricao, status, indice) => {
 
                       <input class='card_ad__tempo' type='datetime-local' min=${min} name='' id='r-data-' data-dates=${indice}>
 
-                      <input class="botao" type="submit" value="Calcular!" id="botao" name="botao" data-botoes=${indice}/>
-            </div>
+                      <input class="botao" type="submit" value="Calcular!" id="botao" name="botao" data-botoes=${indice}>
+                    </div>
 
-            <div class="resultado">
-              <time class="f_dias"></time>
-              <time class="f_horas"></time>
-              <time class="f_minutos"></time>
-              <time class="f_segundos"></time>
-            </div>
+                    <div class="resultado">
+                      <time class="f_dias"></time>
+                      <time class="f_horas"></time>
+                      <time class="f_minutos"></time>
+                      <time class="f_segundos"></time>
+                    </div>
         `;
   linha.appendChild(cardNovo);
 
@@ -144,9 +142,10 @@ const criarTarefa = (tarefa, descricao, status, indice) => {
 
   // tarefasCriadas = document.querySelectorAll("[data-tarefa]");
 
-  botoesCriados = document.querySelectorAll("[data-dates]");
+  datasCriadas = document.querySelectorAll("[data-dates]");
   botoesCriados = document.querySelectorAll("[data-botoes]");
   telaInicio.style.display = "none";
+
 };
 
 //Clicando nos botões de tarefas
@@ -182,7 +181,7 @@ const clickOnTexts = (evento) => {
       updateBankD(index, textD);
     });
   }
-  console.log(elemento);
+  // console.log(elemento);
   //Testar o label da descricação
 };
 
@@ -207,21 +206,34 @@ adTrab.addEventListener("click", pushBanco);
 
 linha.addEventListener("click", clickOnButtons);
 linha.addEventListener("mousedown", clickOnTexts);
-linha.addEventListener("keydown", function (event) {
-  const code = event.key;
+linha.addEventListener("keydown", function (evento) {
+  const code = evento.key;
   if (code === "Tab") {
-    clickOnTexts(event);
+    clickOnTexts(evento);
   }
 });
 
-document.addEventListener("keydown", function (event) {
-  const code = event.key;
+document.addEventListener("keydown", function (evento) {
+  const code = evento.key;
   if (code === "Enter") {
-    clickOnTexts(event);
+    clickOnTexts(evento);
     atualizarTela();
   }
 });
 
+
+linha.addEventListener("click", (evento) => {
+  const elemento = evento.target;
+  const indice = elemento.dataset.botoes;
+  if (elemento.type === "submit") {
+    const dataDoCard = datasCriadas[indice].value;
+    evento.preventDefault()
+    console.log(dataDoCard)
+  }
+})
+
+
+atualizarTela();
 atualizarTela();
 //Olhar o código do vídeo do Código fonte de novo https://youtu.be/NfHVPEzo5Ik
 // Erro em inserir item
