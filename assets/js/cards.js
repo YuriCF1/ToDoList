@@ -130,10 +130,10 @@ const criarTarefa = (tarefa, descricao, status, indice) => {
                     </div>
 
                     <div class="resultado">
-                      <time class="f_dias"></time>
-                      <time class="f_horas"></time>
-                      <time class="f_minutos"></time>
-                      <time class="f_segundos"></time>
+                      <time class="f_dias_${indice}"></time>
+                      <time class="f_horas_${indice}"></time>
+                      <time class="f_minutos_${indice}"></time>
+                      <time class="f_segundos_${indice}"></time>
                     </div>
         `;
   linha.appendChild(cardNovo);
@@ -145,7 +145,6 @@ const criarTarefa = (tarefa, descricao, status, indice) => {
   datasCriadas = document.querySelectorAll("[data-dates]");
   botoesCriados = document.querySelectorAll("[data-botoes]");
   telaInicio.style.display = "none";
-
 };
 
 //Clicando nos botões de tarefas
@@ -221,19 +220,178 @@ document.addEventListener("keydown", function (evento) {
   }
 });
 
+atualizarTela();
+atualizarTela();
+//Olhar o código do vídeo do Código fonte de novo https://youtu.be/NfHVPEzo5Ik
+// Erro em inserir item
+
+//_____________________________________________________________________________________CONTAGEM REGRESSIVA
+//_____________________________________________________________________________________CONTAGEM REGRESSIVA
+//_____________________________________________________________________________________CONTAGEM REGRESSIVA
+//_____________________________________________________________________________________CONTAGEM REGRESSIVA
+//_____________________________________________________________________________________CONTAGEM REGRESSIVA
 
 linha.addEventListener("click", (evento) => {
   const elemento = evento.target;
   const indice = elemento.dataset.botoes;
   if (elemento.type === "submit") {
     const dataDoCard = datasCriadas[indice].value;
-    evento.preventDefault()
-    console.log(dataDoCard)
+    evento.preventDefault();
+    console.log(dataDoCard);
+
+    const elementoPai = elemento.parentElement.parentElement;
+    pegaData(dataDoCard, indice, elementoPai);
   }
-})
+});
+
+// //______________________________Soluação encontrada_________________________________
+
+function pegaData(dataDoCard, indice, elementoPai) {
+  console.log(indice)
+
+  const diaMostrado = elementoPai.getElementsByClassName(`f_dias_${indice}`);
+  const horaMostrado = elementoPai.getElementsByClassName(`f_horas_${indice}`);
+  const minutoMostrado = elementoPai.getElementsByClassName(`f_minutos_${indice}`);
+  const segundoMostrado = elementoPai.getElementsByClassName(`f_segundos_${indice}`);
+
+  
+
+  // const diaDado = document.getElementsByClassName('r-data'); //Input dado
+  const diaDado = document.getElementById("r-data-"); //Input dado
+
+  const diaAgora = new Date(); //Data do click
+  // const dataRecebida = new Date(diaDado.value);
+  const dataRecebida = new Date(dataDoCard);
+
+  //Separando as grandezas do input
+  const minGet = new Date(dataRecebida.getUTCMinutes());
+  const segGet = new Date(dataRecebida.getUTCSeconds());
+
+  //Separando as grandezas do momento do click
+  const minCliK = new Date(diaAgora.getUTCMinutes());
+  const segCliK = new Date(diaAgora.getUTCSeconds());
+
+  // Transformando grandezas em unidades de milisegundo
+  const segundoG = 1000;
+  const minuteG = segundoG * 60;
+  const hourG = minuteG * 60;
+  const dayG = hourG * 24;
+  const yearG = dayG * 365;
+
+  //Diferença da data de agora e data atual
+  let faltaTotal = dataRecebida - diaAgora;
+
+  let faltDiaM = Math.floor(faltaTotal / dayG);
+  let faltHoraM = Math.floor(faltaTotal / hourG) - 24 * faltDiaM;
+
+  let faltaMin = minGet - minCliK - 1;
+  let faltaSeg = 60 - (segGet - segCliK) * -1;
+
+  if (faltaMin < 0) {
+    faltaMin += 60;
+  }
+
+  regressiva();
+
+  // Loop regressivo
+
+  let contagem;
+
+  function regressivaInicio() {
+    contagem = setInterval(regressiva, 1000); // ////////////////////////////////////////
+  }
+
+  regressivaInicio();
+
+  //Condicoes regressivo
+  function regressiva() {
+    console.clear();
+    let pluralD = " dia";
+    let pluralH = " hora";
+    let pluralM = " minuto";
+    let pluralS = " segundo";
+
+    let zeroD;
+    let zeroH;
+    let zeroM;
+    let zeroS;
+
+    if (faltDiaM < 0) {
+      faltDiaM = 0;
+    }
+
+    if (faltaSeg > 0) {
+      faltaSeg -= 1;
+    } else if (faltaSeg == 0 && faltaMin > 0 && faltaMin <= 59) {
+      faltaMin -= 1;
+      faltaSeg = 59;
+    } else if (faltaSeg == 0 && faltaMin == 0 && faltHoraM > 0) {
+      faltHoraM -= 1;
+      faltaMin = 59;
+      faltaSeg = 59;
+    } else if (
+      faltaSeg == 0 &&
+      faltaMin == 0 &&
+      faltHoraM == 0 &&
+      faltDiaM > 0
+    ) {
+      faltDiaM -= 1;
+      faltHoraM = 23;
+      faltaMin = 59;
+      faltaSeg = 59;
+    } else if (
+      faltaSeg == 0 &&
+      faltaMin == 0 &&
+      faltHoraM == 0 &&
+      faltDiaM == 0
+    ) {
+      alert("Acabou!");
+      clearInterval(contagem);
+    }
+
+    if (faltDiaM > 1) {
+      pluralD = " dias";
+    }
+    if (faltHoraM > 1) {
+      pluralH = " horas";
+    }
+
+    if (faltaMin > 1) {
+      pluralM = " minutos";
+    }
+
+    if (faltaSeg > 1) {
+      pluralS = " segundos";
+    }
+
+    if (faltDiaM >= 10) {
+      zeroD = "";
+    } else zeroD = "0";
+    if (faltHoraM >= 10) {
+      zeroH = "";
+    } else zeroH = "0";
+    if (faltaMin >= 10) {
+      zeroM = "";
+    } else zeroM = "0";
+    if (faltaSeg >= 10) {
+      zeroS = "";
+    } else zeroS = "0";
+
+    console.log("Days" + faltDiaM);
+    console.log("Hours" + faltHoraM);
+    console.log("Minutes" + faltaMin);
+    console.log("Seconds" + faltaSeg);
+
+    console.log(diaMostrado)
 
 
-atualizarTela();
-atualizarTela();
-//Olhar o código do vídeo do Código fonte de novo https://youtu.be/NfHVPEzo5Ik
-// Erro em inserir item
+    //Atribuição no HTML
+
+    diaMostrado.innerHTML = zeroD + faltDiaM + pluralD;
+    horaMostrado.innerHTML = zeroH + faltHoraM + pluralH;
+    minutoMostrado.innerHTML = zeroM + faltaMin + pluralM;
+    segundoMostrado.innerHTML = zeroS + faltaSeg + pluralS;
+  }
+}
+
+//________________________________________________________Terminto da solução____________________________________________________
