@@ -11,9 +11,10 @@ let id = 0;
 
 //__________________IDEIAS____________________
 //Quantas tarefas voce quer focar?
-//Exemplos de tarefas inspiracionais
+//Exemplos de tarefas inspiracionais)_________________
 
-const getBanco = () => JSON.parse(localStorage.getItem("toDoList")) ?? []; // ?? = Se não existir
+//____________________________Define o banco de dados
+const getBanco = () => JSON.parse(localStorage.getItem("toDoList")) ?? []; // ?? = Se não existir, criar uma vazia
 const setBanco = (bancoTrabalho) =>
   localStorage.setItem("toDoList", JSON.stringify(bancoTrabalho)); //
 
@@ -23,6 +24,7 @@ const setBanco = (bancoTrabalho) =>
 //   { tarefa: "Nadar", descricao: "Piscina", status: "" },
 // ];
 
+//___________________________Início do
 const atualizarTela = () => {
   limparTarefas();
   const bancoTrabalho = getBanco();
@@ -46,7 +48,7 @@ function pushBanco() {
   const bancoTrabalho = getBanco();
   if (bancoTrabalho.length < 5) {
     const bancoTrabalho = getBanco();
-    bancoTrabalho.push({ tarefa: "", descricao: "", status: "" });
+    bancoTrabalho.push({ tarefa: "", descricao: "", status: "" , dateTime: ""});
     setBanco(bancoTrabalho);
     atualizarTela();
   } else {
@@ -56,7 +58,7 @@ function pushBanco() {
   console.log(bancoTrabalho);
 }
 //_____________________________________VERIFICAR O STATUS___________________________________
-const atualizarItem = (indice, elementoPai) => {
+const atualizarStatus = (indice, elementoPai) => {
   const bancoTrabalho = getBanco();
   bancoTrabalho[indice].status =
     bancoTrabalho[indice].status === "" ? "checked" : ""; //Verificação do status
@@ -130,10 +132,10 @@ const criarTarefa = (tarefa, descricao, status, indice) => {
                     </div>
 
                     <div class="resultado">
-                      <time class="f_dias_${indice}"></time>
-                      <time class="f_horas_${indice}"></time>
-                      <time class="f_minutos_${indice}"></time>
-                      <time class="f_segundos_${indice}"></time>
+                      <time id="f_dias_${indice}" class="f_dias_${indice}"></time>
+                      <time id="f_horas_${indice}" class="f_horas_${indice}"></time>
+                      <time id="f_minutos_${indice}" class="f_minutos_${indice}"></time>
+                      <time id="f_segundos_${indice}" class="f_segundos_${indice}"></time>
                     </div>
         `;
   linha.appendChild(cardNovo);
@@ -156,7 +158,7 @@ const clickOnButtons = (evento) => {
     removerItem(indice);
   } else if (elemento.type === "checkbox") {
     const indice = elemento.dataset.indice;
-    atualizarItem(indice, elementoPai);
+    atualizarStatus(indice, elementoPai);
   }
 };
 
@@ -220,6 +222,8 @@ document.addEventListener("keydown", function (evento) {
   }
 });
 
+//_______________________Funções de inicialização
+atualizarTela();
 atualizarTela();
 atualizarTela();
 //Olhar o código do vídeo do Código fonte de novo https://youtu.be/NfHVPEzo5Ik
@@ -240,21 +244,29 @@ linha.addEventListener("click", (evento) => {
     console.log(dataDoCard);
 
     const elementoPai = elemento.parentElement.parentElement;
+    
     pegaData(dataDoCard, indice, elementoPai);
+    updateBankDate(indice, dataDoCard)
   }
 });
 
-// //______________________________Soluação encontrada_________________________________
+function updateBankDate(index, dataDoCard) {
+  const bancoTrabalho = getBanco();
+  bancoTrabalho[index].data = dataDoCard;
+  console.log(bancoTrabalho);
+  setBanco(bancoTrabalho);
+
+}
+
+//______________________________CÓDIGO DA CONTAGEM REGRESSIVA_________________________________
 
 function pegaData(dataDoCard, indice, elementoPai) {
   console.log(indice)
-
-  const diaMostrado = elementoPai.getElementsByClassName(`f_dias_${indice}`);
-  const horaMostrado = elementoPai.getElementsByClassName(`f_horas_${indice}`);
-  const minutoMostrado = elementoPai.getElementsByClassName(`f_minutos_${indice}`);
-  const segundoMostrado = elementoPai.getElementsByClassName(`f_segundos_${indice}`);
-
   
+  const diaMostrado = document.getElementById(`f_dias_${indice}`);
+  const horaMostrado = document.getElementById(`f_horas_${indice}`);
+  const minutoMostrado = document.getElementById(`f_minutos_${indice}`);
+  const segundoMostrado = document.getElementById(`f_segundos_${indice}`);
 
   // const diaDado = document.getElementsByClassName('r-data'); //Input dado
   const diaDado = document.getElementById("r-data-"); //Input dado
@@ -381,9 +393,6 @@ function pegaData(dataDoCard, indice, elementoPai) {
     console.log("Hours" + faltHoraM);
     console.log("Minutes" + faltaMin);
     console.log("Seconds" + faltaSeg);
-
-    console.log(diaMostrado)
-
 
     //Atribuição no HTML
 
