@@ -11,7 +11,9 @@ let id = 0;
 
 //__________________IDEIAS____________________
 //Quantas tarefas voce quer focar?
-//Exemplos de tarefas inspiracionais)_________________
+//Exemplos de tarefas para boa prática_________________
+
+//________________________________Mensagens inpiracionais
 
 //____________________________Define o banco de dados
 const getBanco = () => JSON.parse(localStorage.getItem("toDoList")) ?? []; // ?? = Se não existir, criar uma vazia
@@ -24,12 +26,12 @@ const setBanco = (bancoTrabalho) =>
 //   { tarefa: "Nadar", descricao: "Piscina", status: "" },
 // ];
 
-//___________________________Início do
+//___________________________Início do Código
 const atualizarTela = () => {
   limparTarefas();
   const bancoTrabalho = getBanco();
   bancoTrabalho.forEach((item, indice) =>
-    criarTarefa(item.tarefa, item.descricao, item.status, indice)
+    criarTarefa(item.tarefa, item.descricao, item.status, item.dateTime, indice)
   );
   //________________________ESTUDO________________________________
   //Uso do for each
@@ -84,7 +86,7 @@ const removerItem = (indice) => {
 };
 
 //____________________________CRIAR TAREFA_____________________
-const criarTarefa = (tarefa, descricao, status, indice) => {
+const criarTarefa = (tarefa, descricao, status, dateTime, indice) => {
   let numMeta = indice + 1;
   const cardNovo = document.createElement(`form`); // Cria um novo elemento <>
   let data = `${indice}`;
@@ -126,7 +128,7 @@ const criarTarefa = (tarefa, descricao, status, indice) => {
                     <div class="contador">
                       <label for="tempo" class="contador_titulo">Escolha</label>
 
-                      <input class='card_ad__tempo' type='datetime-local' min=${min} name='' id='r-data-' data-dates=${indice}>
+                      <input class='card_ad__tempo' type='datetime-local' min=${min} name='' id='r-data-' data-dates=${indice} value=${dateTime}>
 
                       <input class="botao" type="submit" value="Calcular!" id="botao" name="botao" data-botoes=${indice}>
                     </div>
@@ -147,6 +149,11 @@ const criarTarefa = (tarefa, descricao, status, indice) => {
   datasCriadas = document.querySelectorAll("[data-dates]");
   botoesCriados = document.querySelectorAll("[data-botoes]");
   telaInicio.style.display = "none";
+
+  if (dateTime) {
+    pegaData(dateTime, indice)
+
+  }
 };
 
 //Clicando nos botões de tarefas
@@ -244,7 +251,7 @@ linha.addEventListener("click", (evento) => {
     console.log(dataDoCard);
 
     const elementoPai = elemento.parentElement.parentElement;
-    
+
     pegaData(dataDoCard, indice, elementoPai);
     updateBankDate(indice, dataDoCard)
   }
@@ -252,7 +259,7 @@ linha.addEventListener("click", (evento) => {
 
 function updateBankDate(index, dataDoCard) {
   const bancoTrabalho = getBanco();
-  bancoTrabalho[index].data = dataDoCard;
+  bancoTrabalho[index].dateTime = dataDoCard;
   console.log(bancoTrabalho);
   setBanco(bancoTrabalho);
 
@@ -261,7 +268,7 @@ function updateBankDate(index, dataDoCard) {
 //______________________________CÓDIGO DA CONTAGEM REGRESSIVA_________________________________
 
 function pegaData(dataDoCard, indice, elementoPai) {
-  console.log(indice)
+
   
   const diaMostrado = document.getElementById(`f_dias_${indice}`);
   const horaMostrado = document.getElementById(`f_horas_${indice}`);
@@ -403,4 +410,5 @@ function pegaData(dataDoCard, indice, elementoPai) {
   }
 }
 
+// Testar o código para apagar e bloquear novos códigos quando o X for clicado
 //________________________________________________________Terminto da solução____________________________________________________
