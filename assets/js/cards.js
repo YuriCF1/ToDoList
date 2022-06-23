@@ -3,28 +3,28 @@ const adTrab = document.getElementById("maisTrabalho");
 const linha = document.querySelector(".card_linhas");
 const telaInicio = document.querySelector(".cards_centro__tela");
 
-// var tarefasCriadas;
 var datasCriadas;
 let botoesCriados;
-
+let contagem;
 let id = 0;
 
 //__________________IDEIAS____________________
 //Quantas tarefas voce quer focar?
 //Exemplos de tarefas para boa prática_________________
 
-//________________________________Mensagens inpiracionais
-
-//____________________________Define o banco de dados
-const getBanco = () => JSON.parse(localStorage.getItem("toDoList")) ?? []; // ?? = Se não existir, criar uma vazia
-const setBanco = (bancoTrabalho) =>
-  localStorage.setItem("toDoList", JSON.stringify(bancoTrabalho)); //
-
 // let bancoTrabalho = [
 //   { tarefa: "Andar", descricao: "Calçada", status: "" },
 //   { tarefa: "Correr", descricao: "Rua", status: "checked" },
 //   { tarefa: "Nadar", descricao: "Piscina", status: "" },
 // ];
+
+
+//____________________________Define o banco de dados
+
+const getBanco = () => JSON.parse(localStorage.getItem("toDoList")) ?? []; // ?? = Se não existir, criar uma vazia
+const setBanco = (bancoTrabalho) =>
+  localStorage.setItem("toDoList", JSON.stringify(bancoTrabalho)); //
+
 
 //___________________________Início do Código
 const atualizarTela = () => {
@@ -50,7 +50,7 @@ function pushBanco() {
   const bancoTrabalho = getBanco();
   if (bancoTrabalho.length < 5) {
     const bancoTrabalho = getBanco();
-    bancoTrabalho.push({ tarefa: "", descricao: "", status: "" , dateTime: ""});
+    bancoTrabalho.push({ tarefa: "", descricao: "", status: "", dateTime: "" });
     setBanco(bancoTrabalho);
     atualizarTela();
   } else {
@@ -59,11 +59,15 @@ function pushBanco() {
   }
   console.log(bancoTrabalho);
 }
-//_____________________________________VERIFICAR O STATUS___________________________________
+//_____________________________________VERIFICAR O STATUS E EXCLUI A DATA___________________________________
 const atualizarStatus = (indice, elementoPai) => {
+  resetContagem(indice); //Para a contagem regressiva e zera o cronômetro
+
   const bancoTrabalho = getBanco();
   bancoTrabalho[indice].status =
     bancoTrabalho[indice].status === "" ? "checked" : ""; //Verificação do status
+  bancoTrabalho[indice].dateTime = "";
+
   if (bancoTrabalho[indice].status === "checked") {
     elementoPai.classList.remove("card_ad");
     elementoPai.classList.add("card_ad__feito");
@@ -121,14 +125,15 @@ const criarTarefa = (tarefa, descricao, status, dateTime, indice) => {
                     
                     <div class="botoes">
                     <label for='tempo'>Tarefa feita?</label>
-                        <input type="checkbox" id='tempo' ${status}='' data-indice=${indice}>
-                        <input class="btDelet" type="button" value="X" data-indice=${indice}>
+                    <input type="checkbox" id='tempo' ${status}='' data-indice=${indice}>
+                    <label for='excluir'>Excluir</label>
+                        <input class="btDelet" id="excluir" type="button" value="X" data-indice=${indice}>
                     </div>
 
                     <div class="contador">
                       <label for="tempo" class="contador_titulo">Escolha</label>
 
-                      <input class='card_ad__tempo' type='datetime-local' min=${min} name='' id='r-data-' data-dates=${indice} value=${dateTime}>
+                      <input class='card_ad__tempo' type='datetime-local' min=${min} name='' id='inputDate-${indice}' data-dates=${indice} value=${dateTime}>
 
                       <input class="botao" type="submit" value="Calcular!" id="botao" name="botao" data-botoes=${indice}>
                     </div>
@@ -151,8 +156,7 @@ const criarTarefa = (tarefa, descricao, status, dateTime, indice) => {
   telaInicio.style.display = "none";
 
   if (dateTime) {
-    pegaData(dateTime, indice)
-
+    pegaData(dateTime, indice);
   }
 };
 
@@ -166,6 +170,10 @@ const clickOnButtons = (evento) => {
   } else if (elemento.type === "checkbox") {
     const indice = elemento.dataset.indice;
     atualizarStatus(indice, elementoPai);
+
+    resetContagem(indice);
+
+   
   }
 };
 
@@ -231,10 +239,6 @@ document.addEventListener("keydown", function (evento) {
 
 //_______________________Funções de inicialização
 atualizarTela();
-atualizarTela();
-atualizarTela();
-//Olhar o código do vídeo do Código fonte de novo https://youtu.be/NfHVPEzo5Ik
-// Erro em inserir item
 
 //_____________________________________________________________________________________CONTAGEM REGRESSIVA
 //_____________________________________________________________________________________CONTAGEM REGRESSIVA
@@ -250,10 +254,10 @@ linha.addEventListener("click", (evento) => {
     evento.preventDefault();
     console.log(dataDoCard);
 
-    const elementoPai = elemento.parentElement.parentElement;
+    resetContagem(indice);
 
-    pegaData(dataDoCard, indice, elementoPai);
-    updateBankDate(indice, dataDoCard)
+    pegaData(dataDoCard, indice);
+    updateBankDate(indice, dataDoCard);
   }
 });
 
@@ -262,24 +266,19 @@ function updateBankDate(index, dataDoCard) {
   bancoTrabalho[index].dateTime = dataDoCard;
   console.log(bancoTrabalho);
   setBanco(bancoTrabalho);
-
 }
 
 //______________________________CÓDIGO DA CONTAGEM REGRESSIVA_________________________________
 
-function pegaData(dataDoCard, indice, elementoPai) {
+function pegaData(dataDoCard, indice) {
 
-  
   const diaMostrado = document.getElementById(`f_dias_${indice}`);
   const horaMostrado = document.getElementById(`f_horas_${indice}`);
   const minutoMostrado = document.getElementById(`f_minutos_${indice}`);
   const segundoMostrado = document.getElementById(`f_segundos_${indice}`);
 
-  // const diaDado = document.getElementsByClassName('r-data'); //Input dado
-  const diaDado = document.getElementById("r-data-"); //Input dado
-
   const diaAgora = new Date(); //Data do click
-  // const dataRecebida = new Date(diaDado.value);
+
   const dataRecebida = new Date(dataDoCard);
 
   //Separando as grandezas do input
@@ -295,7 +294,7 @@ function pegaData(dataDoCard, indice, elementoPai) {
   const minuteG = segundoG * 60;
   const hourG = minuteG * 60;
   const dayG = hourG * 24;
-  const yearG = dayG * 365;
+  // const yearG = dayG * 365;
 
   //Diferença da data de agora e data atual
   let faltaTotal = dataRecebida - diaAgora;
@@ -310,21 +309,19 @@ function pegaData(dataDoCard, indice, elementoPai) {
     faltaMin += 60;
   }
 
-  regressiva();
-
   // Loop regressivo
 
-  let contagem;
-
-  function regressivaInicio() {
-    contagem = setInterval(regressiva, 1000); // ////////////////////////////////////////
-  }
+  regressivaLoop();
 
   regressivaInicio();
 
+  function regressivaInicio() {
+    contagem = setInterval(regressivaLoop, 1000); // ////////////////////////////////////////
+  }
+
   //Condicoes regressivo
-  function regressiva() {
-    console.clear();
+  function regressivaLoop() {
+    // console.clear();
     let pluralD = " dia";
     let pluralH = " hora";
     let pluralM = " minuto";
@@ -396,13 +393,12 @@ function pegaData(dataDoCard, indice, elementoPai) {
       zeroS = "";
     } else zeroS = "0";
 
-    console.log("Days" + faltDiaM);
-    console.log("Hours" + faltHoraM);
-    console.log("Minutes" + faltaMin);
-    console.log("Seconds" + faltaSeg);
+    // console.log("Days" + faltDiaM);
+    // console.log("Hours" + faltHoraM);
+    // console.log("Minutes" + faltaMin);
+    // console.log("Seconds" + faltaSeg);
 
     //Atribuição no HTML
-
     diaMostrado.innerHTML = zeroD + faltDiaM + pluralD;
     horaMostrado.innerHTML = zeroH + faltHoraM + pluralH;
     minutoMostrado.innerHTML = zeroM + faltaMin + pluralM;
@@ -410,5 +406,14 @@ function pegaData(dataDoCard, indice, elementoPai) {
   }
 }
 
-// Testar o código para apagar e bloquear novos códigos quando o X for clicado
-//________________________________________________________Terminto da solução____________________________________________________
+function resetContagem(indice) {
+  clearInterval(contagem);
+
+  document.getElementById(`f_dias_${indice}`).innerHTML = "";
+  document.getElementById(`f_horas_${indice}`).innerHTML = "";
+  document.getElementById(`f_minutos_${indice}`).innerHTML = "";
+  document.getElementById(`f_segundos_${indice}`).innerHTML = "";
+
+}
+
+//Fazer tela de 'Acabou' e 'Foque em 5, evite burnout e multitasking'
