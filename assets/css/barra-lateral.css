@@ -3,29 +3,38 @@
     box-sizing: border-box;
     width: 15vh;
     height: 85vh;
-    padding: 1rem;
     text-align: center;
-    
+}
 
+.lateral > div {
+    position: absolute;
+    top: 35%;
+    width: 15vh;
+    
 }
 
 .lateral_frase {
-    margin-top: 3rem;
-    font-size: 1.1rem;
+    font-size: 2rem;
 
 }
 
 .lateral_lista {
     margin-top: 2rem;
+    
 
 }
 
-.lateral_lista > li {
+.lateral_lista > label {
+    font-size: 1.5rem;
+
+}
+
+.lateral_lista > label {
     margin-top: 1.5rem;
-    cursor: pointer;
 }
 
 .fa-solid {
-    font-size: 6rem;
-
+    font-size: 2rem;
+    margin-top: 1rem;
+    cursor: pointer;
 }
