@@ -2,6 +2,7 @@
 const adTrab = document.getElementById("maisTrabalho");
 const linha = document.querySelector(".card_linhas");
 const telaInicio = document.querySelector(".cards_centro__tela");
+const telaInicioBackground = document.querySelectorAll(".textoCard");
 
 var datasCriadas;
 let botoesCriados;
@@ -414,6 +415,22 @@ function resetContagem(indice) {
   document.getElementById(`f_minutos_${indice}`).innerHTML = "";
   document.getElementById(`f_segundos_${indice}`).innerHTML = "";
 
+}
+
+
+function changeBackground() {
+  telaInicioBackground.forEach(item => {
+    item.style.transform = 'scale(1.1)'
+    item.style.transition = '1s';
+  })
+  
+}
+
+function resetBackground() {
+  telaInicioBackground.forEach(item => {
+    item.style.transform = 'scale(1)'
+    item.style.transition = '1s';
+  })
 }
 
 //Fazer tela de 'Acabou' e 'Foque em 5, evite burnout e multitasking'
