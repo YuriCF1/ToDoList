@@ -19,13 +19,11 @@ let id = 0;
 //   { tarefa: "Nadar", descricao: "Piscina", status: "" },
 // ];
 
-
 //____________________________Define o banco de dados
 
 const getBanco = () => JSON.parse(localStorage.getItem("toDoList")) ?? []; // ?? = Se não existir, criar uma vazia
 const setBanco = (bancoTrabalho) =>
   localStorage.setItem("toDoList", JSON.stringify(bancoTrabalho)); //
-
 
 //___________________________Início do Código
 const atualizarTela = () => {
@@ -124,12 +122,12 @@ const criarTarefa = (tarefa, descricao, status, dateTime, indice) => {
                     value=''>${descricao}</textarea>
 
                     
-                    <div class="botoes">
-                    <label for='tempo'>Tarefa feita?</label>
-                    <input type="checkbox" id='tempo' ${status}='' data-indice=${indice}>
-                    <label for='excluir'>Excluir</label>
-                        <input class="btDelet" id="excluir" type="button" value="X" data-indice=${indice}>
-                    </div>
+                    <section class="botoes">
+                      <label for='tempo'>Feito?</label>
+                      <input type="checkbox" id='tempo' ${status}='' data-indice=${indice}>
+                      <label for='excluir'>Excluir</label>
+                      <input class="btDelet" id="excluir" type="button" value="X" data-indice=${indice}>
+                    </section>
 
                     <div class="contador">
                       <label for="tempo" class="contador_titulo">Escolha</label>
@@ -173,8 +171,6 @@ const clickOnButtons = (evento) => {
     atualizarStatus(indice, elementoPai);
 
     resetContagem(indice);
-
-   
   }
 };
 
@@ -272,7 +268,6 @@ function updateBankDate(index, dataDoCard) {
 //______________________________CÓDIGO DA CONTAGEM REGRESSIVA_________________________________
 
 function pegaData(dataDoCard, indice) {
-
   const diaMostrado = document.getElementById(`f_dias_${indice}`);
   const horaMostrado = document.getElementById(`f_horas_${indice}`);
   const minutoMostrado = document.getElementById(`f_minutos_${indice}`);
@@ -366,20 +361,20 @@ function pegaData(dataDoCard, indice) {
       clearInterval(contagem);
     }
 
-    if (faltDiaM > 1) {
-      pluralD = " dias";
-    }
-    if (faltHoraM > 1) {
-      pluralH = " horas";
-    }
+    // if (faltDiaM > 1) {
+    //   pluralD = " dias";
+    // }
+    // if (faltHoraM > 1) {
+    //   pluralH = " horas";
+    // }
 
-    if (faltaMin > 1) {
-      pluralM = " minutos";
-    }
+    // if (faltaMin > 1) {
+    //   pluralM = " minutos";
+    // }
 
-    if (faltaSeg > 1) {
-      pluralS = " segundos";
-    }
+    // if (faltaSeg > 1) {
+    //   pluralS = " segundos";
+    // }
 
     if (faltDiaM >= 10) {
       zeroD = "";
@@ -400,10 +395,10 @@ function pegaData(dataDoCard, indice) {
     // console.log("Seconds" + faltaSeg);
 
     //Atribuição no HTML
-    diaMostrado.innerHTML = zeroD + faltDiaM + pluralD;
-    horaMostrado.innerHTML = zeroH + faltHoraM + pluralH;
-    minutoMostrado.innerHTML = zeroM + faltaMin + pluralM;
-    segundoMostrado.innerHTML = zeroS + faltaSeg + pluralS;
+    diaMostrado.innerHTML = zeroD + faltDiaM + ' D';
+    horaMostrado.innerHTML = zeroH + faltHoraM + ' Hr';
+    minutoMostrado.innerHTML = zeroM + faltaMin + ' Min';
+    segundoMostrado.innerHTML = zeroS + faltaSeg + ' Seg';
   }
 }
 
@@ -414,23 +409,20 @@ function resetContagem(indice) {
   document.getElementById(`f_horas_${indice}`).innerHTML = "";
   document.getElementById(`f_minutos_${indice}`).innerHTML = "";
   document.getElementById(`f_segundos_${indice}`).innerHTML = "";
-
 }
 
-
 function changeBackground() {
-  telaInicioBackground.forEach(item => {
-    item.style.transform = 'scale(1.1)'
-    item.style.transition = '1s';
-  })
-  
+  telaInicioBackground.forEach((item) => {
+    item.style.transform = "scale(1.1)";
+    item.style.transition = "1s";
+  });
 }
 
 function resetBackground() {
-  telaInicioBackground.forEach(item => {
-    item.style.transform = 'scale(1)'
-    item.style.transition = '1s';
-  })
+  telaInicioBackground.forEach((item) => {
+    item.style.transform = "scale(1)";
+    item.style.transition = "1s";
+  });
 }
 
 //Fazer tela de 'Acabou' e 'Foque em 5, evite burnout e multitasking'

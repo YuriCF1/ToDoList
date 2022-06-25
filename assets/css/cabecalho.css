@@ -1,12 +1,13 @@
 body {
     font-family: 'Comfortaa', cursive;
     font-weight: 700;
-    background-color: #1E6091;
+    background-color: var(--cor-1);
+    color: #202020;
 }
 
 .cabecalho_container {
     height: 15vh;
-    background-color: #1E6091;
+    background-color: var(--cor-1);
     display: flex;
     align-items: center;
     padding: 0 10vw;
@@ -18,12 +19,6 @@ body {
     height: 12.5vh;
     
 }
-
-.logo:hover .cards_centro { 
-    background-color: rgb(3, 63, 192);
-
-}
-
 
 .cabecalho_container > h2 {
     font-size: 2.75rem;

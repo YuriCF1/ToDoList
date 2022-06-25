@@ -1,5 +1,5 @@
 .lateral {
-    background-color: #1E6091;
+    background-color: var(--cor-1);
     box-sizing: border-box;
     width: 15vh;
     height: 85vh;
@@ -34,7 +34,7 @@
 }
 
 .fa-solid {
-    font-size: 2rem;
+    font-size: 4rem;
     margin-top: 1rem;
     cursor: pointer;
 }
