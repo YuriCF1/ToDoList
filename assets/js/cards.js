@@ -84,7 +84,7 @@ const removerItem = (indice) => {
   setBanco(bancoTrabalho);
   atualizarTela();
   if (bancoTrabalho.length <= 0) {
-    telaInicio.style.display = "block";
+    fadeInBackground()
   }
 };
 
@@ -152,7 +152,8 @@ const criarTarefa = (tarefa, descricao, status, dateTime, indice) => {
 
   datasCriadas = document.querySelectorAll("[data-dates]");
   botoesCriados = document.querySelectorAll("[data-botoes]");
-  telaInicio.style.display = "none";
+  // telaInicio.style.display = "none"; 
+  fadeOutBackground()
 
   if (dateTime) {
     pegaData(dateTime, indice);
@@ -424,5 +425,21 @@ function resetBackground() {
     item.style.transition = "1s";
   });
 }
+
+function fadeOutBackground() {
+  telaInicioBackground.forEach((item) => {
+    item.style.opacity = "0";
+    item.style.transition = "0.5s";
+  });
+}
+
+function fadeInBackground() {
+  telaInicioBackground.forEach((item) => {
+    item.style.opacity = "1";
+    item.style.transition = "0.5s";
+  });
+}
+
+
 
 //Fazer tela de 'Acabou' e 'Foque em 5, evite burnout e multitasking'
