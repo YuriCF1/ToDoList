@@ -183,7 +183,7 @@
 /* _____________________________CARDS FEITOS__________________________ */
 
 .card_ad__feito {
-    background-color: rgb(150, 195, 129);
+    background-color: var(--cor-4);
     border-top-left-radius: 35px;
     border-bottom-right-radius: 35px;
     box-sizing: border-box;

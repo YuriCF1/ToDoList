@@ -17,7 +17,7 @@ let id = 0;
 //   { tarefa: "Andar", descricao: "Calçada", status: "" },
 //   { tarefa: "Correr", descricao: "Rua", status: "checked" },
 //   { tarefa: "Nadar", descricao: "Piscina", status: "" },
-// ];
+// ];console.log
 
 //____________________________Define o banco de dados
 
@@ -27,7 +27,7 @@ const setBanco = (bancoTrabalho) =>
 
 //___________________________Início do Código
 const atualizarTela = () => {
-  verificaBackground();
+  // verificaBackground();
   limparTarefas();
   const bancoTrabalho = getBanco();
   bancoTrabalho.forEach((item, indice) =>
@@ -57,23 +57,24 @@ function pushBanco() {
     bancoTrabalho.pop();
     alert("Foca nas 5");
   }
-  //  (bancoTrabalho);
 }
 //_____________________________________VERIFICAR O STATUS E EXCLUI A DATA___________________________________
 const atualizarStatus = (indice, elementoPai) => {
-  resetContagem(indice); //Para a contagem regressiva e zera o cronômetro
-
+  
   const bancoTrabalho = getBanco();
   bancoTrabalho[indice].status =
-    bancoTrabalho[indice].status === "" ? "checked" : ""; //Verificação do status
+  bancoTrabalho[indice].status === "" ? "checked" : ""; //Verificação do status
   bancoTrabalho[indice].dateTime = "";
-
+  
   if (bancoTrabalho[indice].status === "checked") {
-    elementoPai.classList.remove("card_ad");
-    elementoPai.classList.add("card_ad__feito");
+    // elementoPai.classList.remove("card_ad");
+    // elementoPai.classList.add("card_ad__feito");
+    elementoPai.style.backgroundColor = '#7de158'
+    resetContagem(indice); //Para a contagem regressiva e zera o cronômetro
   } else {
-    elementoPai.classList.remove("card_ad__feito");
-    elementoPai.classList.add("card_ad");
+    // elementoPai.classList.remove("card_ad__feito");
+    // elementoPai.classList.add("card_ad");
+    elementoPai.style.backgroundColor = '#0466c8'
   }
   setBanco(bancoTrabalho);
 };
@@ -117,7 +118,6 @@ const criarTarefa = (tarefa, descricao, status, dateTime, indice) => {
   var timeZone = new Date().getTimezoneOffset() * 60000; //offset in milliseconds
   var ISOtimezone = new Date(Date.now() - timeZone).toISOString().slice(0, 16);
 
-  console.log(ISOtimezone);
   // const bancoTrabalho = getBanco();
   cardNovo.innerHTML = `
                     <input id='card_ad__titulo${id}' class='card_ad__titulo' type='text' 
@@ -162,10 +162,15 @@ const criarTarefa = (tarefa, descricao, status, dateTime, indice) => {
   // telaInicio.style.display = "none";
   fadeOutBackground();
 
-  // console.log(cardNovo)
-  if (dateTime) {
-    pegaData(dateTime, indice, cardNovo);
-  }
+  if(dateTime > ISOtimezone)  {
+    pegaData(dateTime, indice, cardNovo)
+    
+  } else if (!dateTime) {  
+    cardNovo.style.backgroundColor;
+  } else {  
+    cardNovo.style.backgroundColor = "red";
+    
+  } 
 };
 
 //Clicando nos botões de tarefas
@@ -178,7 +183,6 @@ const clickOnButtons = (evento) => {
   } else if (elemento.type === "checkbox") {
     const indice = elemento.dataset.indice;
     atualizarStatus(indice, elementoPai);
-
     resetContagem(indice);
   }
 };
@@ -188,22 +192,17 @@ const clickOnTexts = (evento) => {
   const elemento = evento.target;
   if (elemento.dataset.task) {
     elemento.addEventListener("blur", () => {
-      // console.log(elemento);
       let textT = elemento.value;
       let index = elemento.dataset.task;
-      // console.log(textT);
       updateBankT(index, textT);
     });
   } else if (elemento.dataset.descricao) {
     elemento.addEventListener("blur", () => {
-      // console.log(elemento);
       let textD = elemento.value;
       let index = elemento.dataset.descricao;
-      // console.log(textD);
       updateBankD(index, textD);
     });
   }
-  // console.log(elemento);
   //Testar o label da descricação
 };
 
@@ -211,7 +210,6 @@ const clickOnTexts = (evento) => {
 function updateBankT(index, textT) {
   const bancoTrabalho = getBanco();
   bancoTrabalho[index].tarefa = textT;
-  // console.log(bancoTrabalho);
   setBanco(bancoTrabalho);
 }
 
@@ -219,7 +217,6 @@ function updateBankT(index, textT) {
 function updateBankD(index, textD) {
   const bancoTrabalho = getBanco();
   bancoTrabalho[index].descricao = textD;
-  // console.log(bancoTrabalho);
   setBanco(bancoTrabalho);
 }
 
@@ -284,6 +281,8 @@ function updateBankDate(index, dataDoCard) {
 //______________________________CÓDIGO DA CONTAGEM REGRESSIVA_________________________________
 
 function pegaData(dataDoCard, indice, elementoPai) {
+ 
+
   const diaMostrado = document.getElementById(`f_dias_${indice}`);
   const horaMostrado = document.getElementById(`f_horas_${indice}`);
   const minutoMostrado = document.getElementById(`f_minutos_${indice}`);
@@ -334,10 +333,10 @@ function pegaData(dataDoCard, indice, elementoPai) {
   //Condicoes regressivo
   function regressivaLoop() {
     // console.clear();
-    let pluralD = " dia";
-    let pluralH = " hora";
-    let pluralM = " minuto";
-    let pluralS = " segundo";
+    // let pluralD = " dia";
+    // let pluralH = " hora";
+    // let pluralM = " minuto";
+    // let pluralS = " segundo";
 
     let zeroD;
     let zeroH;
@@ -368,13 +367,13 @@ function pegaData(dataDoCard, indice, elementoPai) {
       faltaMin = 59;
       faltaSeg = 59;
     } else if (
-      faltaSeg == 0 &&
-      faltaMin == 0 &&
-      faltHoraM == 0 &&
-      faltDiaM == 0
+      faltDiaM === 0 &&
+      faltHoraM === 0 &&
+      faltaMin === 0 &&
+      faltaSeg === 0
     ) {
-      alert("Acabou!");
       clearInterval(contagem);
+
     }
 
     // if (faltDiaM > 1) {
@@ -412,11 +411,13 @@ function pegaData(dataDoCard, indice, elementoPai) {
 
     //Alerta de dia
     if (faltDiaM < 1) {
-      elementoPai.style.backgroundColor = "#fcf300";
+      elementoPai.style.backgroundColor = "orange";
     }
 
     if (faltDiaM === 0 && faltHoraM === 0 && faltaMin === 0 && faltaSeg === 0) {
       elementoPai.style.backgroundColor = "red";
+      updateBankDate(indice, dataDoCard);
+      console.log(dataDoCard)
     }
 
     //Atribuição no HTML
