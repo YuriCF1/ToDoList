@@ -71,12 +71,13 @@
     box-sizing: border-box;
     background-color: var(--cor-2);
     margin: 1rem;
-    height: 24rem;
+    height: 25rem;
     padding: 1rem;
     width: calc(85vw / 5 - (2rem));
     display: flex;
     flex-direction: column;
     box-shadow: 0 0 1rem #515151;
+    transition: 0.3s;
 
 }
 
@@ -95,9 +96,8 @@
 }
 
 
-
 .card_ad__titulo:focus, .card_ad__tempo:focus {
-    background: #FDFDFD;
+    background: var(--cor-3);
     outline: none;
 }
 
@@ -106,43 +106,6 @@
     text-align: left;
 
 }
-
-/* _____________________________CARDS FEITOS__________________________ */
-
-.card_ad__feito {
-    background-color: rgb(150, 195, 129);
-    border-top-left-radius: 35px;
-    border-bottom-right-radius: 35px;
-    box-sizing: border-box;
-    margin: 1rem;
-    height: 24rem;
-    padding: 1rem;
-    width: calc(85vw / 5 - (2rem));
-    display: flex;
-    flex-direction: column;
-    box-shadow: 0 0 1rem #515151;
-    
-}
-
-.card_ad__feito > textarea {
-    margin: 1rem auto;
-    background: none;
-    font-size: 1.1rem;
-    background-color: var(--cor-3);
-    height: 4rem;
-    max-height: 4rem;
-    width: 16rem;
-    max-width: 16rem;
-    
-    
-}
-
-.card_ad__feito > label {
-    margin: 1rem 0 0.3rem 0;
-    text-align: left;
-
-}
-
 
 /* _____________________________CARDS FEITOS-FIM__________________________ */
 .card_ad > textarea {
@@ -158,17 +121,18 @@
 }
 
 .card_ad__tempo {
+    color: #2a2a2a;
     align-self: center;
-    font-size: 1.05rem;
+    font-size: 1.4rem;
     background: none;
     border-style: none;
     margin-top: 0.5rem;
-    width: 13rem;
+    width: 15rem;
 
 }
 
 .botao {
-    margin: 1rem 0 0.75rem 0;
+    margin: 1rem 0 1.3rem 0;
     font-size: 1.2rem;
     border: 1px solid black;
     background-color: rgb(0, 238, 255);
@@ -199,6 +163,7 @@
 .botoes > input[type='checkbox'] {
     width: 2rem;
     height: 2rem;
+    cursor: pointer;
     
 }
 
@@ -212,4 +177,42 @@
     display: flex;
     justify-content: space-around;
     font-size: 1.15rem;
+}
+
+
+/* _____________________________CARDS FEITOS__________________________ */
+
+.card_ad__feito {
+    background-color: rgb(150, 195, 129);
+    border-top-left-radius: 35px;
+    border-bottom-right-radius: 35px;
+    box-sizing: border-box;
+    margin: 1rem;
+    height: 25rem;
+    padding: 1rem;
+    width: calc(85vw / 5 - (2rem));
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 0 1rem #515151;
+    transition: 0.3s;
+    
+}
+
+.card_ad__feito > textarea {
+    margin: 1rem auto;
+    background: none;
+    font-size: 1.1rem;
+    background-color: var(--cor-3);
+    height: 4rem;
+    max-height: 4rem;
+    width: 16rem;
+    max-width: 16rem;
+    
+    
+}
+
+.card_ad__feito > label {
+    margin: 1rem 0 0.3rem 0;
+    text-align: left;
+
 }

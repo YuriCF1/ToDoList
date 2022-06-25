@@ -27,6 +27,7 @@ const setBanco = (bancoTrabalho) =>
 
 //___________________________Início do Código
 const atualizarTela = () => {
+  verificaBackground();
   limparTarefas();
   const bancoTrabalho = getBanco();
   bancoTrabalho.forEach((item, indice) =>
@@ -56,7 +57,7 @@ function pushBanco() {
     bancoTrabalho.pop();
     alert("Foca nas 5");
   }
-  console.log(bancoTrabalho);
+  //  (bancoTrabalho);
 }
 //_____________________________________VERIFICAR O STATUS E EXCLUI A DATA___________________________________
 const atualizarStatus = (indice, elementoPai) => {
@@ -84,7 +85,7 @@ const removerItem = (indice) => {
   setBanco(bancoTrabalho);
   atualizarTela();
   if (bancoTrabalho.length <= 0) {
-    fadeInBackground()
+    fadeInBackground();
   }
 };
 
@@ -110,7 +111,13 @@ const criarTarefa = (tarefa, descricao, status, dateTime, indice) => {
 
   id++;
 
-  let min = new Date().toISOString().slice(0, 16); //Determinando data mínima, como data atual
+  // let min = new Date().toISOString().slice(0, 16); //Determinando data mínima, como data atual
+  // let min1 = new Date().toLocaleTimeString().slice(0, 16); //Determinando data mínima, como data atual
+
+  var timeZone = new Date().getTimezoneOffset() * 60000; //offset in milliseconds
+  var ISOtimezone = new Date(Date.now() - timeZone).toISOString().slice(0, 16);
+
+  console.log(ISOtimezone);
   // const bancoTrabalho = getBanco();
   cardNovo.innerHTML = `
                     <input id='card_ad__titulo${id}' class='card_ad__titulo' type='text' 
@@ -130,9 +137,9 @@ const criarTarefa = (tarefa, descricao, status, dateTime, indice) => {
                     </section>
 
                     <div class="contador">
-                      <label for="tempo" class="contador_titulo">Escolha</label>
+                      <label for="tempo" class="contador_titulo">Data limite</label>
 
-                      <input class='card_ad__tempo' type='datetime-local' min=${min} name='' id='inputDate-${indice}' data-dates=${indice} value=${dateTime}>
+                      <input class='card_ad__tempo' type='datetime-local' min=${ISOtimezone} name='' id='inputDate-${indice}' data-dates=${indice} value=${dateTime}>
 
                       <input class="botao" type="submit" value="Calcular!" id="botao" name="botao" data-botoes=${indice}>
                     </div>
@@ -152,11 +159,12 @@ const criarTarefa = (tarefa, descricao, status, dateTime, indice) => {
 
   datasCriadas = document.querySelectorAll("[data-dates]");
   botoesCriados = document.querySelectorAll("[data-botoes]");
-  // telaInicio.style.display = "none"; 
-  fadeOutBackground()
+  // telaInicio.style.display = "none";
+  fadeOutBackground();
 
+  // console.log(cardNovo)
   if (dateTime) {
-    pegaData(dateTime, indice);
+    pegaData(dateTime, indice, cardNovo);
   }
 };
 
@@ -180,18 +188,18 @@ const clickOnTexts = (evento) => {
   const elemento = evento.target;
   if (elemento.dataset.task) {
     elemento.addEventListener("blur", () => {
-      console.log(elemento);
+      // console.log(elemento);
       let textT = elemento.value;
       let index = elemento.dataset.task;
-      console.log(textT);
+      // console.log(textT);
       updateBankT(index, textT);
     });
   } else if (elemento.dataset.descricao) {
     elemento.addEventListener("blur", () => {
-      console.log(elemento);
+      // console.log(elemento);
       let textD = elemento.value;
       let index = elemento.dataset.descricao;
-      console.log(textD);
+      // console.log(textD);
       updateBankD(index, textD);
     });
   }
@@ -203,7 +211,7 @@ const clickOnTexts = (evento) => {
 function updateBankT(index, textT) {
   const bancoTrabalho = getBanco();
   bancoTrabalho[index].tarefa = textT;
-  console.log(bancoTrabalho);
+  // console.log(bancoTrabalho);
   setBanco(bancoTrabalho);
 }
 
@@ -211,7 +219,7 @@ function updateBankT(index, textT) {
 function updateBankD(index, textD) {
   const bancoTrabalho = getBanco();
   bancoTrabalho[index].descricao = textD;
-  console.log(bancoTrabalho);
+  // console.log(bancoTrabalho);
   setBanco(bancoTrabalho);
 }
 
@@ -246,29 +254,36 @@ atualizarTela();
 
 linha.addEventListener("click", (evento) => {
   const elemento = evento.target;
+  const elementoPai = elemento.parentElement.parentElement;
+  console.log(elementoPai);
+
   const indice = elemento.dataset.botoes;
   if (elemento.type === "submit") {
+    if (!elementoPai.checkValidity()) {
+      //Chegar validação do form
+      return;
+    }
     const dataDoCard = datasCriadas[indice].value;
-    evento.preventDefault();
+
     console.log(dataDoCard);
-
+    evento.preventDefault();
     resetContagem(indice);
-
-    pegaData(dataDoCard, indice);
+    pegaData(dataDoCard, indice, elementoPai);
     updateBankDate(indice, dataDoCard);
+    atualizarTela();
   }
 });
 
 function updateBankDate(index, dataDoCard) {
   const bancoTrabalho = getBanco();
   bancoTrabalho[index].dateTime = dataDoCard;
-  console.log(bancoTrabalho);
+  // console.log(bancoTrabalho);
   setBanco(bancoTrabalho);
 }
 
 //______________________________CÓDIGO DA CONTAGEM REGRESSIVA_________________________________
 
-function pegaData(dataDoCard, indice) {
+function pegaData(dataDoCard, indice, elementoPai) {
   const diaMostrado = document.getElementById(`f_dias_${indice}`);
   const horaMostrado = document.getElementById(`f_horas_${indice}`);
   const minutoMostrado = document.getElementById(`f_minutos_${indice}`);
@@ -395,11 +410,20 @@ function pegaData(dataDoCard, indice) {
     // console.log("Minutes" + faltaMin);
     // console.log("Seconds" + faltaSeg);
 
+    //Alerta de dia
+    if (faltDiaM < 1) {
+      elementoPai.style.backgroundColor = "#fcf300";
+    }
+
+    if (faltDiaM === 0 && faltHoraM === 0 && faltaMin === 0 && faltaSeg === 0) {
+      elementoPai.style.backgroundColor = "red";
+    }
+
     //Atribuição no HTML
-    diaMostrado.innerHTML = zeroD + faltDiaM + ' D';
-    horaMostrado.innerHTML = zeroH + faltHoraM + ' Hr';
-    minutoMostrado.innerHTML = zeroM + faltaMin + ' Min';
-    segundoMostrado.innerHTML = zeroS + faltaSeg + ' Seg';
+    diaMostrado.innerHTML = zeroD + faltDiaM + " D";
+    horaMostrado.innerHTML = zeroH + faltHoraM + " Hr";
+    minutoMostrado.innerHTML = zeroM + faltaMin + " Min";
+    segundoMostrado.innerHTML = zeroS + faltaSeg + " Seg";
   }
 }
 
@@ -440,6 +464,11 @@ function fadeInBackground() {
   });
 }
 
-
+function verificaBackground() {
+  const bancoTrabalho = getBanco();
+  if (bancoTrabalho.length > 0) {
+    telaInicio.style.opacity = "1";
+  }
+}
 
 //Fazer tela de 'Acabou' e 'Foque em 5, evite burnout e multitasking'
