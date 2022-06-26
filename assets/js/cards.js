@@ -252,7 +252,6 @@ atualizarTela();
 linha.addEventListener("click", (evento) => {
   const elemento = evento.target;
   const elementoPai = elemento.parentElement.parentElement;
-  console.log(elementoPai);
 
   const indice = elemento.dataset.botoes;
   if (elemento.type === "submit") {
@@ -262,7 +261,6 @@ linha.addEventListener("click", (evento) => {
     }
     const dataDoCard = datasCriadas[indice].value;
 
-    console.log(dataDoCard);
     evento.preventDefault();
     resetContagem(indice);
     pegaData(dataDoCard, indice, elementoPai);
@@ -417,7 +415,6 @@ function pegaData(dataDoCard, indice, elementoPai) {
     if (faltDiaM === 0 && faltHoraM === 0 && faltaMin === 0 && faltaSeg === 0) {
       elementoPai.style.backgroundColor = "red";
       updateBankDate(indice, dataDoCard);
-      console.log(dataDoCard)
     }
 
     //Atribuição no HTML
