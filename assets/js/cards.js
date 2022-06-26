@@ -6,7 +6,7 @@ const telaInicioBackground = document.querySelectorAll(".textoCard");
 
 var datasCriadas;
 let botoesCriados;
-let contagem;
+let loopC;
 let id = 0;
 
 //__________________IDEIAS____________________
@@ -272,14 +272,16 @@ linha.addEventListener("click", (evento) => {
 function updateBankDate(index, dataDoCard) {
   const bancoTrabalho = getBanco();
   bancoTrabalho[index].dateTime = dataDoCard;
-  // console.log(bancoTrabalho);
   setBanco(bancoTrabalho);
 }
 
-//______________________________CÓDIGO DA CONTAGEM REGRESSIVA_________________________________
+//______________________________Pega Data_________________________________
+//______________________________Pega Data_________________________________
+//______________________________Pega Data_________________________________
+//______________________________Pega Data_________________________________
+//______________________________Pega Data_________________________________
 
 function pegaData(dataDoCard, indice, elementoPai) {
- 
 
   const diaMostrado = document.getElementById(`f_dias_${indice}`);
   const horaMostrado = document.getElementById(`f_horas_${indice}`);
@@ -323,9 +325,8 @@ function pegaData(dataDoCard, indice, elementoPai) {
   regressivaLoop();
 
   regressivaInicio();
-
   function regressivaInicio() {
-    contagem = setInterval(regressivaLoop, 1000); // ////////////////////////////////////////
+    loopC = setInterval(regressivaLoop, 1000); // ////////////////////////////////////////
   }
 
   //Condicoes regressivo
@@ -426,7 +427,8 @@ function pegaData(dataDoCard, indice, elementoPai) {
 }
 
 function resetContagem(indice) {
-  clearInterval(contagem);
+  clearInterval(loopC);
+  atualizarTela();
 
   document.getElementById(`f_dias_${indice}`).innerHTML = "";
   document.getElementById(`f_horas_${indice}`).innerHTML = "";
