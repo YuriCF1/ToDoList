@@ -71,12 +71,14 @@ const atualizarStatus = (indice, elementoPai) => {
   
   if (bancoTrabalho[indice].status === "checked") {  
     console.dir(elementoPai)
-    elementoPai.classList.remove("card_ad");
-    elementoPai.classList.add("card_ad__feito");
+    // elementoPai.classList.remove("card_ad");
+    // elementoPai.classList.add("card_ad__feito");
+    elementoPai.style.backgroundColor = '#7de158'
     resetContagem(indice); //stops the counting
   } else {
-    elementoPai.classList.remove("card_ad__feito");
-    elementoPai.classList.add("card_ad");
+    // elementoPai.classList.remove("card_ad__feito");
+    // elementoPai.classList.add("card_ad");
+    elementoPai.style.backgroundColor = '#0466c8'
   }
   setBanco(bancoTrabalho);
 };
@@ -421,7 +423,8 @@ function pegaData(dataDoCard, indice, elementoPai) {
 
 function resetContagem(indice) {
   clearInterval(loopC);
-  atualizarTela();
+  setTimeout(atualizarTela, 300); //Tempo que a transição de cor acontece 
+  
 
   document.getElementById(`f_dias_${indice}`).innerHTML = "";
   document.getElementById(`f_horas_${indice}`).innerHTML = "";
