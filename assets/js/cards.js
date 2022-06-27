@@ -1,7 +1,8 @@
 //Chabges the texti for mobile to make the UX better
 if (navigator.userAgent.match(/Mobile/)) {
-  document.querySelector('.cards_iniciosub').innerHTML = 'Clicando no ícone na área acima';
-  }
+  document.querySelector(".cards_iniciosub").innerHTML =
+    "Clicando no ícone na área acima";
+}
 
 //Gets from the DOM
 const adTrab = document.getElementById("maisTrabalho");
@@ -10,6 +11,8 @@ const telaInicio = document.querySelector(".cards_centro__tela");
 const telaInicioBackground = document.querySelectorAll(".textoCard");
 
 //Unisversal Variables
+let altura = 14;
+
 var datasCriadas;
 let botoesCriados;
 let loopC;
@@ -24,11 +27,10 @@ const setBanco = (bancoTrabalho) =>
 //......Updates Screen with the new datas......
 
 function verifyBank() {
-  if(JSON.parse(localStorage.toDoList).length > 0) {
+  if (JSON.parse(localStorage.toDoList).length > 0) {
     telaInicio.style.display = "none";
   } else {
     telaInicio.style.display;
-
   }
 }
 const atualizarTela = () => {
@@ -37,11 +39,12 @@ const atualizarTela = () => {
   bancoTrabalho.forEach((item, indice) =>
     criarTarefa(item.tarefa, item.descricao, item.status, item.dateTime, indice)
   );
+  aumentaFundoMobile(bancoTrabalho);
   //______ESTUDO_______
   //Uso do for each
   // numbers.forEach((number, index, array) => {
   //     console.log(array);
-  //});  
+  //});
 };
 
 //......Cleans the screen preventing duplicated cards......
@@ -50,7 +53,6 @@ const limparTarefas = () => {
     linha.removeChild(linha.lastChild);
   }
 };
-
 
 //_____________________Updates the the list with actions and progress of the user__________________
 //......Adds cards if there isn't more than 5......
@@ -63,27 +65,39 @@ function pushBanco() {
     atualizarTela();
   } else {
     bancoTrabalho.pop();
-    alert("Foca nas 5");
+    burnoutAlert();
   }
+}
+
+function burnoutAlert() {
+  const backGroundPopUp = document.querySelector(".popup_fundo");
+  const buttonBurnOut = document.querySelector(".burnoutBtn");
+  backGroundPopUp.style.opacity = "1";
+  backGroundPopUp.style.pointerEvents = "auto";
+
+  buttonBurnOut.addEventListener("click", () => {
+    backGroundPopUp.style.pointerEvents = "none";
+    backGroundPopUp.style.opacity = "0";
+  });
 }
 
 //......Updates the status/color of the card to Done or not done......
 const atualizarStatus = (indice, elementoPai) => {
   const bancoTrabalho = getBanco();
   bancoTrabalho[indice].status =
-  bancoTrabalho[indice].status === "" ? "checked" : "";
+    bancoTrabalho[indice].status === "" ? "checked" : "";
   bancoTrabalho[indice].dateTime = "";
-  
-  if (bancoTrabalho[indice].status === "checked") {  
-    console.dir(elementoPai)
+
+  if (bancoTrabalho[indice].status === "checked") {
+    console.dir(elementoPai);
     // elementoPai.classList.remove("card_ad");
     // elementoPai.classList.add("card_ad__feito");
-    elementoPai.style.backgroundColor = '#7de158'
+    elementoPai.style.backgroundColor = "#7de158";
     resetContagem(indice); //stops the counting
   } else {
     // elementoPai.classList.remove("card_ad__feito");
     // elementoPai.classList.add("card_ad");
-    elementoPai.style.backgroundColor = '#0466c8'
+    elementoPai.style.backgroundColor = "#0466c8";
   }
   setBanco(bancoTrabalho);
 };
@@ -110,7 +124,7 @@ const criarTarefa = (tarefa, descricao, status, dateTime, indice) => {
     descricao = "";
   }
   if (status === "checked") {
-    cardNovo.classList.add("card_ad__feito");    
+    cardNovo.classList.add("card_ad__feito");
   } else {
     cardNovo.classList.add("card_ad");
   }
@@ -171,7 +185,7 @@ const criarTarefa = (tarefa, descricao, status, dateTime, indice) => {
   } else if (!dateTime) {
     cardNovo.style.backgroundColor;
   } else {
-    cardNovo.style.backgroundColor = "red";
+    cardNovo.style.backgroundColor = "#da1e37";
   }
 };
 
@@ -410,11 +424,12 @@ function pegaData(dataDoCard, indice, elementoPai) {
 
     //Alerta de dia
     if (faltDiaM < 1) {
-      elementoPai.style.backgroundColor = "orange";
+      elementoPai.style.backgroundColor = "#f5bb00";
     }
 
     if (faltDiaM === 0 && faltHoraM === 0 && faltaMin === 0 && faltaSeg === 0) {
-      elementoPai.style.backgroundColor = "red";
+      elementoPai.style.backgroundColor = "#f02d3a";
+
       updateBankDate(indice, dataDoCard);
     }
 
@@ -428,8 +443,7 @@ function pegaData(dataDoCard, indice, elementoPai) {
 
 function resetContagem(indice) {
   clearInterval(loopC);
-  setTimeout(atualizarTela, 300); //Tempo que a transição de cor acontece 
-  
+  setTimeout(atualizarTela, 300); //Tempo que a transição de cor acontece
 
   document.getElementById(`f_dias_${indice}`).innerHTML = "";
   document.getElementById(`f_horas_${indice}`).innerHTML = "";
@@ -465,5 +479,17 @@ function fadeInBackground() {
   });
 }
 
+function aumentaFundoMobile(bancoTrabalho) {
+  let tamanhoCards = 30;
+  let cardsCriados = bancoTrabalho.length * tamanhoCards + 1.8;
+  if (navigator.userAgent.match(/Mobile/)) {
+    if (cardsCriados < tamanhoCards) {
+      cardsCriados = 10;
+    }
+    console.log(cardsCriados);
+    document.getElementById("cards_centro").style.height = `${cardsCriados}rem`;
+    document.querySelector(".copyright").style.top = `${cardsCriados + 20}rem`;
+  }
+}
 
 //Fazer tela de 'Acabou' e 'Foque em 5, evite burnout e multitasking'

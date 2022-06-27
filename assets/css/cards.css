@@ -11,6 +11,7 @@
   border-top-left-radius: 2.5rem;
   border-bottom-left-radius: 2.5rem;
   box-shadow: inset 0 0 1.5rem #515151;
+
 }
 
 .cards_inicio {
@@ -215,18 +216,20 @@
   }
 
   .cards_centro {
+    margin-top: 1rem;
     align-self: center;
     width: 95vw;
-    height: 20cm;
+    height: 10rem;
     font-size: 3rem;
     background-color: rgb(188, 199, 223);
     border-radius: 2.5rem;
     box-shadow: inset 0 0 1.5rem #515151;
+    margin-bottom: 6rem;
   }
 
   .textoCard {
     font-size: 2rem;
-    margin-top: 10rem;
+    margin-top: 2rem;
     display: inline-block;
     width: auto;
   }
@@ -249,7 +252,7 @@
   .card_ad {
     box-sizing: border-box;
     background-color: var(--cor-2);
-    height: 52vh;
+    height: 27.5rem;
     width: 75vw;
     display: flex;
     flex-direction: column;
