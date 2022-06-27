@@ -9,26 +9,25 @@
 
     <link rel="icon" type="imagem/jpeg" href="assets/img/relogio.png" />
 
-    <!--Fontes-->
+    <!--FONT FAMILIES-->
+      <!-- 
+        font-family: 'Comfortaa', cursive;
+        font-family: 'Dancing Script', cursive; 
+        -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300&family=Dancing+Script&display=swap"
         rel="stylesheet">
 
-    <!-- 
-        font-family: 'Comfortaa', cursive;
-        font-family: 'Dancing Script', cursive; 
-        -->
-
-    <!--CSS-->
-    <link rel="stylesheet" href="assets/css/variaveis.css">
-
+    <!--CSS LINKS-->
     <link rel="stylesheet" href="assets/css/reset.css">
+    <link rel="stylesheet" href="assets/css/variaveis.css">
     <link rel="stylesheet" href="assets/css/cabecalho.css">
     <link rel="stylesheet" href="assets/css/barra-lateral.css">
     <link rel="stylesheet" href="assets/css/cabecalho_slider.css">
     <link rel="stylesheet" href="assets/css/cards.css">
 
+    <!--FONT AWESOME's LINKS-->
     <script src="https://kit.fontawesome.com/9eaf1d90d0.js" crossorigin="anonymous"></script>
         
 </head>
@@ -77,8 +76,8 @@
                     <h2 class="lateral_frase">Suas metas</h2>
                     <div class="lateral_lista"> 
                         <label for="maisTrabalho">Adicionar</label for="maisTrabalho">
+                            <!--MAKES ANIMATION OF THE MAIN SCREEN-->
                             <i onmouseover="changeBackground()" onmouseleave="resetBackground()" onclick="fadeOutBackground()" id="maisTrabalho" class="fa-solid fa-circle-plus"></i>
-                            <!-- <li>Estudo <i id="maisEstudo" class="fa-solid fa-circle-plus"></i></li> -->
                         </div>
                     </div>
             </aside>
@@ -97,7 +96,7 @@
         <section class="cards_container">
             <div id="card_linhas" class="card_linhas">
                 <form> 
-                    <!-- <form class="card_ad"> -->
+                    <!-- CARDS WILL BE ADDED HERE BY JAVASCRIPT -->
                   
                 </form> 
             </div>
@@ -105,9 +104,5 @@
     </main>
     <script src="assets/js/tempo.js"></script>
     <script src="assets/js/cards.js"></script>
-    <!-- <script src="assets/js/testes.js"></script> -->
-    <!-- Testando -->
-    <!-- <script src="assets/js/contagem-regressiva.js"></script> -->
 </body>
-
 </html>

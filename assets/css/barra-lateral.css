@@ -1,40 +1,75 @@
+/* ASIDE BAR */
 .lateral {
-    background-color: var(--cor-1);
-    box-sizing: border-box;
-    width: 15vh;
-    height: 85vh;
-    text-align: center;
+  background-color: var(--cor-1);
+  box-sizing: border-box;
+  width: 15vh;
+  height: 85vh;
+  text-align: center;
 }
 
 .lateral > div {
-    position: absolute;
-    top: 35%;
-    width: 15vh;
-    
+  position: absolute;
+  top: 35%;
+  width: 15vh;
 }
 
 .lateral_frase {
-    font-size: 2rem;
-
+  font-size: 2rem;
 }
 
 .lateral_lista {
-    margin-top: 2rem;
-    
-
+  margin-top: 2rem;
 }
 
 .lateral_lista > label {
-    font-size: 1.5rem;
-
+  font-size: 1.5rem;
 }
 
 .lateral_lista > label {
-    margin-top: 1.5rem;
+  margin-top: 1.5rem;
 }
 
 .fa-solid {
+  font-size: 4rem;
+  margin-top: 1rem;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 500px) {
+    .lateral {
+        background-color: var(--cor-1);
+        box-sizing: border-box;
+        width: 15vh;
+        height: 85vh;
+        text-align: center;
+      }
+      
+
+  .lateral > div {
+    position: absolute;
+    top: 35%;
+    width: 15vh;
+  }
+
+  .lateral_frase {
+    font-size: 2rem;
+  }
+
+  .lateral_lista {
+    margin-top: 2rem;
+  }
+
+  .lateral_lista > label {
+    font-size: 1.5rem;
+  }
+
+  .lateral_lista > label {
+    margin-top: 1.5rem;
+  }
+
+  .fa-solid {
     font-size: 4rem;
     margin-top: 1rem;
     cursor: pointer;
+  }
 }

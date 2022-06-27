@@ -1,4 +1,4 @@
-/*________Cards no inicio________________________*/
+/*__________________Initial screen________________________*/
 .cards_container {
     display: flex;
 }
@@ -9,6 +9,7 @@
     font-size: 3rem;
     background-color: rgb(188, 199, 223);
     border-top-left-radius: 2.5rem;
+    border-bottom-left-radius: 2.5rem;
     box-shadow: inset 0 0 1.5rem #515151;
 
 }
@@ -31,7 +32,7 @@
 
 }
 
-/*__________________Cards Containers________________*/
+/*__________________Container of the task's line________________*/
 
 .cards_container {
     position: relative;
@@ -50,7 +51,7 @@
     
 }
 
-/*__________________Cards Objetos________________*/
+/*__________________Title of the task________________*/
 
 .card_ad__titulo {
     border-style: none;
@@ -76,13 +77,29 @@
     outline: none;
 }
 
+/* _____________________________UNDONE CARDS__________________________ */
+.card_ad {
+    border-top-left-radius: 35px;
+    border-bottom-right-radius: 35px;
+    box-sizing: border-box;
+    background-color: var(--cor-2);
+    margin: 1rem;
+    height: 27rem;
+    padding: 1rem;
+    width: calc(85vw / 5 - (2rem));
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 0 1rem #515151;
+    transition: all 0.3s ease-out;
+    
+}
+
 .card_ad > label {
     margin: 1rem 0 0.3rem 0;
     text-align: left;
     
 }
 
-/* _____________________________CARDS FEITOS-FIM__________________________ */
 .card_ad > textarea {
     margin: 1rem auto;
     background: none;
@@ -111,6 +128,44 @@
 
 }
 
+/* _____________________________DONE CARDS__________________________ */
+.card_ad__feito {
+    transition: all 0.3s ease-out;
+    border-top-left-radius: 35px;
+    border-bottom-right-radius: 35px;
+    box-sizing: border-box;
+    background-color: var(--cor-4);
+    margin: 1rem;
+    height: 27rem;
+    padding: 1rem;
+    width: calc(85vw / 5 - (2rem));
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 0 1rem #515151;
+    
+}
+
+.card_ad__feito > textarea {
+    margin: 1rem auto;
+    background: none;
+    border-radius: 6px;
+    font-size: 1.1rem;
+    background-color: var(--cor-3);
+    height: 4rem;
+    width: 14rem;
+    max-height: 5rem;
+    max-width: 17rem;
+    padding: 0.5rem;
+
+}
+
+.card_ad__feito > label {
+    margin: 1rem 0 0.3rem 0;
+    text-align: left;
+
+}
+
+/* _____________________________REGULAR SETTING FOR BOTH CARDS__________________________ */
 .botao {
     margin: 1rem 0 1.3rem 0;
     font-size: 1.3rem;
@@ -167,63 +222,8 @@
 }
 
 .resultado {
-/* .resultado > time  { */
     display: flex;
     justify-content: space-around;
     font-size: 1.15rem;
 }
-
-
-/* _____________________________CARDS FEITOS__________________________ */
-
-.card_ad {
-    border-top-left-radius: 35px;
-    border-bottom-right-radius: 35px;
-    box-sizing: border-box;
-    background-color: var(--cor-2);
-    margin: 1rem;
-    height: 27rem;
-    padding: 1rem;
-    width: calc(85vw / 5 - (2rem));
-    display: flex;
-    flex-direction: column;
-    box-shadow: 0 0 1rem #515151;
-    transition: all 0.3s ease-out;
-    
-}
-
-.card_ad__feito {
-    transition: all 0.3s ease-out;
-    border-top-left-radius: 35px;
-    border-bottom-right-radius: 35px;
-    box-sizing: border-box;
-    background-color: var(--cor-4);
-    margin: 1rem;
-    height: 27rem;
-    padding: 1rem;
-    width: calc(85vw / 5 - (2rem));
-    display: flex;
-    flex-direction: column;
-    box-shadow: 0 0 1rem #515151;
-    
-}
-
-.card_ad__feito > textarea {
-    margin: 1rem auto;
-    background: none;
-    border-radius: 6px;
-    font-size: 1.1rem;
-    background-color: var(--cor-3);
-    height: 4rem;
-    width: 14rem;
-    max-height: 5rem;
-    max-width: 17rem;
-    padding: 0.5rem;
-
-}
-
-.card_ad__feito > label {
-    margin: 1rem 0 0.3rem 0;
-    text-align: left;
-
-}
+/* ____________________________________ END OF THE PROJECT____________________________________ */

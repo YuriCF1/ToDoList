@@ -1,3 +1,4 @@
+/* HEADER */
 body {
     font-family: 'Comfortaa', cursive;
     font-weight: 700;
@@ -32,3 +33,43 @@ body {
     row-gap: 10px;
 
 }
+
+@media screen and (max-width: 500px) { 
+    .cabecalho_container {
+        margin-top: 1rem;
+        padding: 0 auto;
+        flex-direction: column;
+        justify-content:inherit;
+        height: 19.5vh;
+
+    }
+
+    .logo {
+        height:7vh;
+        
+    }
+    
+    .cabecalho_container > h2 {
+        font-size: 1.25rem;
+    
+    }
+    
+    .cabecalho_hora {
+        font-size: 1rem;
+        display: flex;
+        column-gap: 3px;
+        margin-top: -0.5rem;
+        text-align: center;
+    }
+    
+    .cabecalho_hora div:last-child time:nth-last-child(-n+2):before {
+    content: '/ '
+    
+    }
+
+    .cabecalho_hora p {
+        display: none;
+
+    }
+}
+
