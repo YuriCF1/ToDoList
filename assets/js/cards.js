@@ -1,51 +1,54 @@
-//Gets
+//Gets from the DOM
 const adTrab = document.getElementById("maisTrabalho");
 const linha = document.querySelector(".card_linhas");
 const telaInicio = document.querySelector(".cards_centro__tela");
 const telaInicioBackground = document.querySelectorAll(".textoCard");
 
+//Unisversal Variables
 var datasCriadas;
 let botoesCriados;
 let loopC;
 let id = 0;
 
-//__________________IDEIAS____________________
-//Quantas tarefas voce quer focar?
-//Exemplos de tarefas para boa prática_________________
-
-// let bancoTrabalho = [
-//   { tarefa: "Andar", descricao: "Calçada", status: "" },
-//   { tarefa: "Correr", descricao: "Rua", status: "checked" },
-//   { tarefa: "Nadar", descricao: "Piscina", status: "" },
-// ];console.log
-
-//____________________________Define o banco de dados
-
+//____________________________Define the dada bank with Local Storage______________________________
 const getBanco = () => JSON.parse(localStorage.getItem("toDoList")) ?? []; // ?? = Se não existir, criar uma vazia
 const setBanco = (bancoTrabalho) =>
-  localStorage.setItem("toDoList", JSON.stringify(bancoTrabalho)); //
+  localStorage.setItem("toDoList", JSON.stringify(bancoTrabalho));
 
-//___________________________Início do Código
+//____________________________About the macro structure_______________________________________________________
+//......Updates Screen with the new datas......
+
+function verifyBank() {
+  if(JSON.parse(localStorage.toDoList).length > 0) {
+    telaInicio.style.display = "none";
+  } else {
+    telaInicio.style.display;
+
+  }
+}
 const atualizarTela = () => {
-  // verificaBackground();
   limparTarefas();
   const bancoTrabalho = getBanco();
   bancoTrabalho.forEach((item, indice) =>
     criarTarefa(item.tarefa, item.descricao, item.status, item.dateTime, indice)
   );
-  //________________________ESTUDO________________________________
+  //______ESTUDO_______
   //Uso do for each
   // numbers.forEach((number, index, array) => {
   //     console.log(array);
-  // });
+  //});  
 };
 
+//......Cleans the screen preventing duplicated cards......
 const limparTarefas = () => {
   while (linha.firstChild) {
     linha.removeChild(linha.lastChild);
   }
 };
 
+
+//_____________________Updates the the list with actions and progress of the user__________________
+//......Adds cards if there isn't more than 5......
 function pushBanco() {
   const bancoTrabalho = getBanco();
   if (bancoTrabalho.length < 5) {
@@ -58,28 +61,27 @@ function pushBanco() {
     alert("Foca nas 5");
   }
 }
-//_____________________________________VERIFICAR O STATUS E EXCLUI A DATA___________________________________
+
+//......Updates the status/color of the card to Done or not done......
 const atualizarStatus = (indice, elementoPai) => {
-  
   const bancoTrabalho = getBanco();
   bancoTrabalho[indice].status =
-  bancoTrabalho[indice].status === "" ? "checked" : ""; //Verificação do status
+  bancoTrabalho[indice].status === "" ? "checked" : "";
   bancoTrabalho[indice].dateTime = "";
   
-  if (bancoTrabalho[indice].status === "checked") {
-    // elementoPai.classList.remove("card_ad");
-    // elementoPai.classList.add("card_ad__feito");
-    elementoPai.style.backgroundColor = '#7de158'
-    resetContagem(indice); //Para a contagem regressiva e zera o cronômetro
+  if (bancoTrabalho[indice].status === "checked") {  
+    console.dir(elementoPai)
+    elementoPai.classList.remove("card_ad");
+    elementoPai.classList.add("card_ad__feito");
+    resetContagem(indice); //stops the counting
   } else {
-    // elementoPai.classList.remove("card_ad__feito");
-    // elementoPai.classList.add("card_ad");
-    elementoPai.style.backgroundColor = '#0466c8'
+    elementoPai.classList.remove("card_ad__feito");
+    elementoPai.classList.add("card_ad");
   }
   setBanco(bancoTrabalho);
 };
 
-//Remoção de item
+//......Removes the card......
 const removerItem = (indice) => {
   const bancoTrabalho = getBanco();
   bancoTrabalho.splice(indice, 1);
@@ -90,7 +92,7 @@ const removerItem = (indice) => {
   }
 };
 
-//____________________________CRIAR TAREFA_____________________
+//_______________________________________Creates tasks_____________________________________________
 const criarTarefa = (tarefa, descricao, status, dateTime, indice) => {
   let numMeta = indice + 1;
   const cardNovo = document.createElement(`form`); // Cria um novo elemento <>
@@ -101,9 +103,9 @@ const criarTarefa = (tarefa, descricao, status, dateTime, indice) => {
     descricao = "";
   }
   if (status === "checked") {
-    cardNovo.classList.add(`card_ad__feito`);
+    cardNovo.classList.add("card_ad__feito");    
   } else {
-    cardNovo.classList.add(`card_ad`); // Define o atributo de identificação HTML
+    cardNovo.classList.add("card_ad");
   }
 
   if (tarefa == "[object PointerEvent]") {
@@ -118,7 +120,6 @@ const criarTarefa = (tarefa, descricao, status, dateTime, indice) => {
   var timeZone = new Date().getTimezoneOffset() * 60000; //offset in milliseconds
   var ISOtimezone = new Date(Date.now() - timeZone).toISOString().slice(0, 16);
 
-  // const bancoTrabalho = getBanco();
   cardNovo.innerHTML = `
                     <input id='card_ad__titulo${id}' class='card_ad__titulo' type='text' 
                     placeholder='Meta ${numMeta}' value='${tarefa}' data-task=${indice}>
@@ -128,10 +129,9 @@ const criarTarefa = (tarefa, descricao, status, dateTime, indice) => {
                     rows='4' cols='10' placeholder='Irei...' data-descricao=${indice}
                     value=''>${descricao}</textarea>
 
-                    
                     <section class="botoes">
-                      <label for='tempo'>Feito?</label>
-                      <input type="checkbox" id='tempo' ${status}='' data-indice=${indice}>
+                      <label for='tempo${indice}'>Feito?</label>
+                      <input type="checkbox" id='tempo${indice}' class="check" value="" ${status}='' data-indice=${indice}>
                       <label for='excluir'>Excluir</label>
                       <input class="btDelet" id="excluir" type="button" value="X" data-indice=${indice}>
                     </section>
@@ -141,7 +141,7 @@ const criarTarefa = (tarefa, descricao, status, dateTime, indice) => {
 
                       <input class='card_ad__tempo' type='datetime-local' min=${ISOtimezone} name='' id='inputDate-${indice}' data-dates=${indice} value=${dateTime}>
 
-                      <input class="botao" type="submit" value="Calcular!" id="botao" name="botao" data-botoes=${indice}>
+                      <input class="botao" type="submit" value="Calcular" id="botao" name="botao" data-botoes=${indice}>
                     </div>
 
                     <div class="resultado">
@@ -155,22 +155,17 @@ const criarTarefa = (tarefa, descricao, status, dateTime, indice) => {
 
   numMeta++;
 
-  // tarefasCriadas = document.querySelectorAll("[data-tarefa]");
-
   datasCriadas = document.querySelectorAll("[data-dates]");
   botoesCriados = document.querySelectorAll("[data-botoes]");
-  // telaInicio.style.display = "none";
   fadeOutBackground();
 
-  if(dateTime > ISOtimezone)  {
-    pegaData(dateTime, indice, cardNovo)
-    
-  } else if (!dateTime) {  
+  if (dateTime > ISOtimezone) {
+    pegaData(dateTime, indice, cardNovo);
+  } else if (!dateTime) {
     cardNovo.style.backgroundColor;
-  } else {  
+  } else {
     cardNovo.style.backgroundColor = "red";
-    
-  } 
+  }
 };
 
 //Clicando nos botões de tarefas
@@ -282,7 +277,6 @@ function updateBankDate(index, dataDoCard) {
 //______________________________Pega Data_________________________________
 
 function pegaData(dataDoCard, indice, elementoPai) {
-
   const diaMostrado = document.getElementById(`f_dias_${indice}`);
   const horaMostrado = document.getElementById(`f_horas_${indice}`);
   const minutoMostrado = document.getElementById(`f_minutos_${indice}`);
@@ -372,7 +366,6 @@ function pegaData(dataDoCard, indice, elementoPai) {
       faltaSeg === 0
     ) {
       clearInterval(contagem);
-
     }
 
     // if (faltDiaM > 1) {
@@ -464,11 +457,5 @@ function fadeInBackground() {
   });
 }
 
-function verificaBackground() {
-  const bancoTrabalho = getBanco();
-  if (bancoTrabalho.length > 0) {
-    telaInicio.style.opacity = "1";
-  }
-}
 
 //Fazer tela de 'Acabou' e 'Foque em 5, evite burnout e multitasking'
