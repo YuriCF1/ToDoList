@@ -486,7 +486,6 @@ function aumentaFundoMobile(bancoTrabalho) {
     if (cardsCriados < tamanhoCards) {
       cardsCriados = 10;
     }
-    console.log(cardsCriados);
     document.getElementById("cards_centro").style.height = `${cardsCriados}rem`;
     document.querySelector(".copyright").style.top = `${cardsCriados + 20}rem`;
   }
