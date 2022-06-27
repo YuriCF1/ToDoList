@@ -1,3 +1,8 @@
+//Chabges the texti for mobile to make the UX better
+if (navigator.userAgent.match(/Mobile/)) {
+  document.querySelector('.cards_iniciosub').innerHTML = 'Clicando no ícone na área acima';
+  }
+
 //Gets from the DOM
 const adTrab = document.getElementById("maisTrabalho");
 const linha = document.querySelector(".card_linhas");
@@ -128,7 +133,7 @@ const criarTarefa = (tarefa, descricao, status, dateTime, indice) => {
 
                     <label for='meta${indice}'>O que você vai fazer?</label>
                     <textarea class='card_ad__inputs' id='meta${indice}' type='text' 
-                    rows='4' cols='10' placeholder='Irei...' data-descricao=${indice}
+                    placeholder='Irei...' data-descricao=${indice}
                     value=''>${descricao}</textarea>
 
                     <section class="botoes">

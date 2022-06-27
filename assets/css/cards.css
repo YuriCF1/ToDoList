@@ -1,151 +1,263 @@
 /*__________________Initial screen________________________*/
 .cards_container {
-    display: flex;
+  display: flex;
 }
 
 .cards_centro {
-    width: calc(100vw - 15vh);
-    text-align: center;
-    font-size: 3rem;
-    background-color: rgb(188, 199, 223);
-    border-top-left-radius: 2.5rem;
-    border-bottom-left-radius: 2.5rem;
-    box-shadow: inset 0 0 1.5rem #515151;
-
+  width: calc(100vw - 15vh);
+  text-align: center;
+  font-size: 3rem;
+  background-color: rgb(188, 199, 223);
+  border-top-left-radius: 2.5rem;
+  border-bottom-left-radius: 2.5rem;
+  box-shadow: inset 0 0 1.5rem #515151;
 }
 
 .cards_inicio {
-    text-align: center;
-    margin-top: calc(50vh - 7rem);
-
+  text-align: center;
+  margin-top: calc(50vh - 7rem);
 }
 
 .cards_iniciosub {
-    font-size: 1.2rem;
-    margin-top: 1rem;
-
+  font-size: 1.2rem;
+  margin-top: 1rem;
 }
 
 .textoCard {
-    display: inline-block;
-    width: 60rem;
-
+  display: inline-block;
+  width: 60rem;
 }
 
 /*__________________Container of the task's line________________*/
 
 .cards_container {
-    position: relative;
-
+  position: relative;
 }
 
 .card_linhas {
-    position: absolute;
-    text-align: center;
-    top: -70vh;
-    left: 22.5vh;
-    height: auto;
-    width: 85vw;
-    display: flex;
-    margin: 1rem auto;
-    
+  position: absolute;
+  text-align: center;
+  top: -70vh;
+  left: 22.5vh;
+  height: auto;
+  width: 85vw;
+  display: flex;
+  margin: 1rem auto;
 }
 
 /*__________________Title of the task________________*/
 
 .card_ad__titulo {
-    border-style: none;
-    background: none;
-    font-size: 1.5rem;
-    height: 1.5rem;
-    width: 15rem;
-    padding: 0.5rem;
-    border-radius: 6px;
-    box-shadow: inset 0 0 2px #515151;
-    
-    
+  border-style: none;
+  background: none;
+  font-size: 1.5rem;
+  height: 1.5rem;
+  width: 15rem;
+  padding: 0.5rem;
+  border-radius: 6px;
+  box-shadow: inset 0 0 2px #515151;
 }
 
 .card_ad__titulo::placeholder {
-    color: rgb(61, 61, 61); 
-    
+  color: rgb(61, 61, 61);
 }
 
-
-.card_ad__titulo:focus, .card_ad__tempo:focus {
-    background: var(--cor-3);
-    outline: none;
+.card_ad__titulo:focus,
+.card_ad__tempo:focus {
+  background: var(--cor-3);
+  outline: none;
 }
 
 /* _____________________________UNDONE CARDS__________________________ */
 .card_ad {
-    border-top-left-radius: 35px;
-    border-bottom-right-radius: 35px;
-    box-sizing: border-box;
-    background-color: var(--cor-2);
-    margin: 1rem;
-    height: 27rem;
-    padding: 1rem;
-    width: calc(85vw / 5 - (2rem));
-    display: flex;
-    flex-direction: column;
-    box-shadow: 0 0 1rem #515151;
-    transition: all 0.3s ease-out;
-    
+  border-top-left-radius: 35px;
+  border-bottom-right-radius: 35px;
+  box-sizing: border-box;
+  background-color: var(--cor-2);
+  margin: 1rem;
+  height: 27rem;
+  padding: 1rem;
+  width: calc(85vw / 5 - (2rem));
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 0 1rem #515151;
+  transition: all 0.3s ease-out;
 }
 
 .card_ad > label {
-    margin: 1rem 0 0.3rem 0;
-    text-align: left;
-    
+  margin: 1rem 0 0.3rem 0;
+  text-align: left;
 }
 
 .card_ad > textarea {
-    margin: 1rem auto;
-    background: none;
-    border-radius: 6px;
-    font-size: 1.1rem;
-    background-color: var(--cor-3);
-    height: 4rem;
-    width: 14rem;
-    max-height: 5rem;
-    max-width: 17rem;
-    padding: 0.5rem;
-    
+  margin: 1rem auto;
+  background: none;
+  border-radius: 6px;
+  font-size: 1.1rem;
+  background-color: var(--cor-3);
+  height: 4rem;
+  width: 14rem;
+  max-height: 5rem;
+  max-width: 17rem;
+  padding: 0.5rem;
 }
 
 .card_ad__tempo {
-    color: #2a2a2a;
-    align-self: center;
-    font-size: 1.4rem;
-    background: none;
-    border-style: none;
-    margin-top: 0.5rem;
-    width: 15rem;
-    height: 1.5rem;
-    padding: 0.5rem;
-    border-radius: 10px;
-
+  color: #2a2a2a;
+  align-self: center;
+  font-size: 1.4rem;
+  background: none;
+  border-style: none;
+  margin-top: 0.5rem;
+  width: 15rem;
+  height: 1.5rem;
+  padding: 0.5rem;
+  border-radius: 10px;
 }
 
 /* _____________________________DONE CARDS__________________________ */
 .card_ad__feito {
-    transition: all 0.3s ease-out;
-    border-top-left-radius: 35px;
-    border-bottom-right-radius: 35px;
-    box-sizing: border-box;
-    background-color: var(--cor-4);
-    margin: 1rem;
-    height: 27rem;
-    padding: 1rem;
-    width: calc(85vw / 5 - (2rem));
-    display: flex;
-    flex-direction: column;
-    box-shadow: 0 0 1rem #515151;
-    
+  transition: all 0.3s ease-out;
+  border-top-left-radius: 35px;
+  border-bottom-right-radius: 35px;
+  box-sizing: border-box;
+  background-color: var(--cor-4);
+  margin: 1rem;
+  height: 27rem;
+  padding: 1rem;
+  width: calc(85vw / 5 - (2rem));
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 0 1rem #515151;
 }
 
 .card_ad__feito > textarea {
+  margin: 1rem auto;
+  background: none;
+  border-radius: 6px;
+  font-size: 1.1rem;
+  background-color: var(--cor-3);
+  height: 4rem;
+  width: 14rem;
+  max-height: 5rem;
+  max-width: 17rem;
+  padding: 0.5rem;
+}
+
+.card_ad__feito > label {
+  margin: 1rem 0 0.3rem 0;
+  text-align: left;
+}
+
+/* _____________________________REGULAR SETTING FOR BOTH CARDS__________________________ */
+.botao {
+  margin: 1rem 0 1.3rem 0;
+  font-size: 1.3rem;
+  border: 1px solid black;
+  background-color: #e3f2fd;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.contagemRegressiva {
+  margin-top: 1rem;
+  color: rgb(62, 62, 62);
+}
+
+.botoes {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.botoes > label {
+  margin-left: 1rem;
+  margin-right: -0.5rem;
+}
+
+.botoes > input[type="button"],
+.botoes > input[type="checkbox"] {
+  min-width: 2rem;
+  width: 2rem;
+  height: 2rem;
+  background-color: white;
+  border-radius: 50%;
+  vertical-align: middle;
+  border: 3px solid #ddd;
+  -webkit-appearance: none;
+  cursor: pointer;
+}
+
+.botoes > input[type="checkbox"]:checked:before {
+  font-size: 1.4rem;
+  padding: 10px;
+  top: -0.3rem;
+  left: -0.3rem;
+  position: relative;
+  content: "\2714";
+}
+
+.contador {
+  margin-top: 1.2rem;
+}
+
+.resultado {
+  display: flex;
+  justify-content: space-around;
+  font-size: 1.15rem;
+}
+/* ____________________________________ MOBILE ____________________________________ */
+
+@media screen and (max-width: 500px) {
+  .cards_container {
+    flex-direction: column;
+    position: initial;
+  }
+
+  .cards_centro {
+    align-self: center;
+    width: 95vw;
+    height: 20cm;
+    font-size: 3rem;
+    background-color: rgb(188, 199, 223);
+    border-radius: 2.5rem;
+    box-shadow: inset 0 0 1.5rem #515151;
+  }
+
+  .textoCard {
+    font-size: 2rem;
+    margin-top: 10rem;
+    display: inline-block;
+    width: auto;
+  }
+  .cards_iniciosub {
+    font-size: 1.2rem;
+    margin-top: 1rem;
+  }
+
+  .card_linhas {
+    position: absolute;
+    flex-direction: column;
+    text-align: center;
+    top: 32vh;
+    left: 8vw;
+    height: auto;
+    width: auto;
+    display: flex;
+  }
+  /* ______________________________UNDONE MOBILE CARDS */
+  .card_ad {
+    box-sizing: border-box;
+    background-color: var(--cor-2);
+    height: 52vh;
+    width: 75vw;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 0 1rem #515151;
+    transition: all 0.3s ease-out;
+  }
+
+  .card_ad > textarea {
     margin: 1rem auto;
     background: none;
     border-radius: 6px;
@@ -156,74 +268,33 @@
     max-height: 5rem;
     max-width: 17rem;
     padding: 0.5rem;
+  }
 
-}
+  /* ______________________________DONE MOBILE CARDS */
 
-.card_ad__feito > label {
-    margin: 1rem 0 0.3rem 0;
-    text-align: left;
-
-}
-
-/* _____________________________REGULAR SETTING FOR BOTH CARDS__________________________ */
-.botao {
-    margin: 1rem 0 1.3rem 0;
-    font-size: 1.3rem;
-    border: 1px solid black;
-    background-color: #e3f2fd;
-    border-radius: 5px;
-    cursor: pointer;
-    
-}
-
-.contagemRegressiva {
-    margin-top: 1rem;
-    color: rgb(62, 62, 62);
-    
-}
-
-.botoes {
+  .card_ad__feito {
+    box-sizing: border-box;
+    background-color: var(--cor-4);
+    height: 52vh;
+    width: 75vw;
     display: flex;
-    justify-content: space-evenly;
-    align-items: center;
-    
+    flex-direction: column;
+    box-shadow: 0 0 1rem #515151;
+    transition: all 0.3s ease-out;
+  }
+
+  .card_ad__feito > textarea {
+    margin: 1rem auto;
+    background: none;
+    border-radius: 6px;
+    font-size: 1.1rem;
+    background-color: var(--cor-3);
+    height: 4rem;
+    width: 14rem;
+    max-height: 5rem;
+    max-width: 17rem;
+    padding: 0.5rem;
+  }
 }
 
-.botoes > label {
-    margin-left: 1rem;
-    margin-right: -0.5rem;
-}
-
-.botoes > input[type='button'],
-.botoes > input[type='checkbox'] {
-    min-width: 2rem;
-    width: 2rem;
-    height: 2rem;
-    background-color: white;
-    border-radius: 50%;
-    vertical-align: middle;
-    border: 3px solid #ddd;
-    -webkit-appearance: none;
-    cursor: pointer;
-}
-
-.botoes > input[type='checkbox']:checked:before  {
-    font-size: 1.4rem;
-    padding: 10px;
-    top: -0.3rem;
-    left: -0.3rem;
-    position: relative;
-    content: "\2714"
-}
-
-.contador {
-    margin-top: 1.2rem;
-
-}
-
-.resultado {
-    display: flex;
-    justify-content: space-around;
-    font-size: 1.15rem;
-}
 /* ____________________________________ END OF THE PROJECT____________________________________ */

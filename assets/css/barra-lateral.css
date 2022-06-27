@@ -37,30 +37,30 @@
 
 @media screen and (max-width: 500px) {
     .lateral {
+        border-top: 1px solid;
         background-color: var(--cor-1);
         box-sizing: border-box;
-        width: 15vh;
-        height: 85vh;
+        width: 100vw;
+        height: 10vh;
         text-align: center;
       }
       
-
   .lateral > div {
-    position: absolute;
-    top: 35%;
-    width: 15vh;
+    padding: 1rem 0;
+    width: 100vw;
+    position: initial;
   }
 
   .lateral_frase {
-    font-size: 2rem;
+    font-size: 1.2rem;
   }
 
   .lateral_lista {
-    margin-top: 2rem;
+    margin: 0;
   }
 
   .lateral_lista > label {
-    font-size: 1.5rem;
+    font-size: 1rem;
   }
 
   .lateral_lista > label {
@@ -68,7 +68,7 @@
   }
 
   .fa-solid {
-    font-size: 4rem;
+    font-size: 1rem;
     margin-top: 1rem;
     cursor: pointer;
   }
