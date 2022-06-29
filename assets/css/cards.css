@@ -305,7 +305,30 @@
   }
 }
 
-@media screen and (min-width: 1024px) {
+@media screen and (min-width: 1024px) and (max-width: 1900px) {  
+  .card_ad__titulo { 
+    width: 14.5rem;
+  }
+  
+  .card_ad > textarea {
+    width: 14rem;
+    height: 4rem;
+  }
+
+  .card_ad__feito > textarea {
+    height: 14em;
+    height: 4rem;
+  }
+
+  .card_ad__tempo {
+    width: 10rem;
+
+  }
+
+  .botoes > label {
+    margin: 1rem 0.3rem 0.3rem 0;
+    text-align: center;
+  }
 
 }
 /* ____________________________________ END OF THE PROJECT____________________________________ */

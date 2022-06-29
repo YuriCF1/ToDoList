@@ -482,7 +482,8 @@ function fadeInBackground() {
 function aumentaFundoMobile(bancoTrabalho) {
   let tamanhoCards = 30;
   let cardsCriados = bancoTrabalho.length * tamanhoCards + 1.8;
-  if (navigator.userAgent.match(/Mobile/)) {
+  // if (navigator.userAgent.match(/Mobile/)) {
+  if (window.screen.width < 600) {
     if (cardsCriados < tamanhoCards) {
       cardsCriados = 10;
     }
