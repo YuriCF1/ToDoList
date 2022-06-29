@@ -1,58 +1,60 @@
 /*____________________________________POPUP_______________________________________*/
 .popup_fundo {
-    background: rgb(0, 0, 0, 0.5);
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    opacity: 0;
-    pointer-events: none;
-    transition: .25s;
+  background: rgb(0, 0, 0, 0.5);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  opacity: 0;
+  pointer-events: none;
+  transition: 0.25s;
 }
 
 .popup_conteudo {
-    color: #202020;
-    width: 30vw;
-    height: 45vh;
-    margin: 35vh auto;
-    font-size: 1.8rem;
-    text-align: center;
-    background-color: var(--cor-5);
-    border-radius: 20px;
-    padding: 1.5rem;
-    box-sizing: border-box;
-    opacity: .85;
-    box-shadow: 5px 5px 8px 2px #151515;
- 
+  color: #202020;
+  width: 30vw;
+  height: 45vh;
+  margin: 35vh auto;
+  font-size: 1.8rem;
+  text-align: center;
+  background-color: var(--cor-5);
+  border-radius: 20px;
+  padding: 1.5rem;
+  box-sizing: border-box;
+  opacity: 0.85;
+  box-shadow: 5px 5px 8px 2px #151515;
 }
 
 .popup_conteudo > img {
-    height: 8rem;
-    display: block;
-    margin: 1.5rem auto;   
-
+  height: 8rem;
+  display: block;
+  margin: 1.5rem auto;
 }
 
 .popup_conteudo > button {
-    font-family: 'Dancing Script', cursive;
-    border-radius: 5px;
-    padding: 0.7rem;
-    background-color: rgb(255, 243, 254);
-    font-size: 2rem;
-    cursor: pointer;
-
+  font-family: "Dancing Script", cursive;
+  border-radius: 5px;
+  padding: 0.7rem;
+  background-color: rgb(255, 243, 254);
+  font-size: 2rem;
+  cursor: pointer;
 }
 
 @media screen and (max-width: 500px) {
-    .popup_conteudo {
-        position: relative;
-        top: 30vh;
-        width: 75vw;
-        height: 50vh;
-        margin: 0 auto;
-        font-size: 1.2rem;
-     
-    }
-    
+  .popup_conteudo {
+    position: relative;
+    top: 30vh;
+    width: 75vw;
+    height: 50vh;
+    margin: 0 auto;
+    font-size: 1.2rem;
+  }
+}
+
+@media screen and (min-width: 1024px) and (max-width: 1900px) {
+  .popup_conteudo {
+    height: 55vh;
+  }
+
 }
