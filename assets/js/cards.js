@@ -189,7 +189,7 @@ const criarTarefa = (tarefa, descricao, status, dateTime, indice) => {
   }
 };
 
-//Clicando nos botões de tarefas
+//Identifying the button that was clicked
 const clickOnButtons = (evento) => {
   const elemento = evento.target;
   const elementoPai = elemento.parentElement.parentElement;
