@@ -54,7 +54,9 @@
 
 @media screen and (min-width: 1024px) and (max-width: 1900px) {
   .popup_conteudo {
-    height: 55vh;
+    height: 70vh;
+    margin: 15vh auto;
+    left: 20rem;
   }
 
 }

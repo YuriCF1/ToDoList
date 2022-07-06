@@ -73,3 +73,11 @@
     cursor: pointer;
   }
 }
+
+@media screen and (min-width: 1024px) and (max-width: 1900px) {  
+  
+  .lateral_lista > label {
+    font-size: 0.9rem;
+  }
+
+}
