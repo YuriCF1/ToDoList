@@ -137,7 +137,8 @@ const criarTarefa = (tarefa, descricao, status, dateTime, indice) => {
 
   // let min = new Date().toISOString().slice(0, 16); //Determinando data mínima, como data atual
   // let min1 = new Date().toLocaleTimeString().slice(0, 16); //Determinando data mínima, como data atual
-
+  
+  // ...Sets the minimum value for the datatimelocal atribute on the input...
   var timeZone = new Date().getTimezoneOffset() * 60000; //offset in milliseconds
   var ISOtimezone = new Date(Date.now() - timeZone).toISOString().slice(0, 16);
 
@@ -189,7 +190,7 @@ const criarTarefa = (tarefa, descricao, status, dateTime, indice) => {
   }
 };
 
-//Clicando nos botões de tarefas
+//Identifying the button that was clicked
 const clickOnButtons = (evento) => {
   const elemento = evento.target;
   const elementoPai = elemento.parentElement.parentElement;
