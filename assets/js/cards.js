@@ -212,9 +212,11 @@ const clickOnTexts = (evento) => {
       let textT = elemento.value;
       let index = elemento.dataset.task;
       updateBankT(index, textT);
+      console.log('Saiu');
     });
   } else if (elemento.dataset.descricao) {
-    elemento.addEventListener("blur", () => {
+    elemento.addEventListener("keyup", () => {
+      console.log('Escrita');
       let textD = elemento.value;
       let index = elemento.dataset.descricao;
       updateBankD(index, textD);
@@ -240,12 +242,16 @@ function updateBankD(index, textD) {
 //Chamando funções de eventos
 adTrab.addEventListener("click", pushBanco);
 
+linha.addEventListener("onfocus", clickOnTexts);
+
 linha.addEventListener("click", clickOnButtons);
 linha.addEventListener("mousedown", clickOnTexts);
-linha.addEventListener("keydown", function (evento) {
+linha.addEventListener("keyup", function (evento) {
   const code = evento.key;
   if (code === "Tab") {
     clickOnTexts(evento);
+    console.log(evento.target);
+    console.log('Tab');
   }
 });
 
