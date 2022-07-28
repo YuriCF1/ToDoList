@@ -27,7 +27,7 @@ Vermelho - Tarefa atrasada
 
 ### Ajustes e melhorias
 
-Há de se pensar na segunda versão desse projeto que irá também dizer o tempo que se passou de acordo com uma data no passado.
+Há de ajustar o input de data e hora através da digitação, não apenas pelo botão no calendário. 
 
 ## 🤝 Colaboradores
 
